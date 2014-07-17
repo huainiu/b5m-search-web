@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<channels>
+	<channel>
+		<displayName>淘沙</displayName>
+		<name>taosha</name>
+		<collection>taosha</collection>
+		<pageSize>36</pageSize>
+		<resultPage>taosha/resultlist</resultPage>
+		<noResultPage>taosha/noresult</noResultPage>
+		<!-- 属性过滤功能 -->
+		<filterAttr>false</filterAttr>
+		<needMoreResearch>false</needMoreResearch>
+		<categoryUrl>false</categoryUrl>
+		<serverPath>http://10.10.99.188:8888/sf1r</serverPath>
+	</channel>
+	<channel>
+		<displayName>日本馆</displayName>
+		<name>japan</name>
+		<collection>japan</collection>
+		<pageSize>36</pageSize>
+		<resultPage>japan/resultlist</resultPage>
+		<noResultPage>japan/noresult</noResultPage>
+		<!-- 属性过滤功能 -->
+		<filterAttr>false</filterAttr>
+		<needMoreResearch>false</needMoreResearch>
+		<serverPath>http://10.10.99.188:8888/sf1r</serverPath>
+		<categoryUrl>false</categoryUrl>
+	</channel>
+	<channel>
+		<displayName>www搜索</displayName>
+		<name>s</name>
+		<collection>b5mp</collection>
+		<pageSize>36</pageSize>
+		<resultPage>s/resultlist</resultPage>
+		<noResultPage>s/noresult</noResultPage>
+		<!-- 属性过滤功能 -->
+		<filterAttr>true</filterAttr>
+		<needMoreResearch>true</needMoreResearch>
+		<categoryUrl>true</categoryUrl>
+		<serverPath>http://10.10.99.188:8888/sf1r</serverPath>
+	</channel>
+	<channel>
+		<displayName>海外搜索</displayName>
+		<name>haiwai</name>
+		<collection>haiwaip</collection>
+		<pageSize>36</pageSize>
+		<resultPage>haiwai/resultlist</resultPage>
+		<noResultPage>haiwai/noresult</noResultPage>
+		<!-- 属性过滤功能 -->
+		<filterAttr>true</filterAttr>
+		<needMoreResearch>true</needMoreResearch>
+		<categoryUrl>true</categoryUrl>
+		<serverPath>http://10.10.99.188:8888/sf1r</serverPath>
+	</channel>
+	<channel>
+		<displayName>美国馆搜索</displayName>
+		<name>usa</name>
+		<collection>haiwaip</collection>
+		<country>美国</country>
+		<pageSize>36</pageSize>
+		<resultPage>usa/resultlist</resultPage>
+		<noResultPage>usa/noresult</noResultPage>
+		<!-- 属性过滤功能 -->
+		<filterAttr>true</filterAttr>
+		<needMoreResearch>true</needMoreResearch>
+		<categoryUrl>true</categoryUrl>
+		<serverPath>http://10.10.99.177:8888/sf1r</serverPath>
+	</channel>
+	<channel>
+		<displayName>韩国馆搜索</displayName>
+		<name>korea</name>
+		<country>韩国</country>
+		<collection>haiwaip</collection>
+		<pageSize>36</pageSize>
+		<resultPage>korea/resultlist</resultPage>
+		<noResultPage>korea/noresult</noResultPage>
+		<!-- 属性过滤功能 -->
+		<filterAttr>true</filterAttr>
+		<needMoreResearch>true</needMoreResearch>
+		<categoryUrl>true</categoryUrl>
+		<serverPath>http://10.10.99.177:8888/sf1r</serverPath>
+	</channel>
+</channels>

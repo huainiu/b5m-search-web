@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	default-autowire="byName" default-lazy-init="false"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+		
+    <context:component-scan base-package="com.b5m.search.service.impl"/>
+    
+    <util:properties id="config" location="classpath:config.properties"/>
+    <context:property-placeholder location="classpath:config.properties"/>
+    <bean id="sf1Query" class="com.b5m.sf1api.service.impl.Sf1QueryImpl">
+    	<constructor-arg index="0" ref="config"/>
+    </bean>
+    
+    <bean id="memcachedClient"
+		class="net.rubyeye.xmemcached.utils.XMemcachedClientFactoryBean">
+		<property name="servers" value="${memcached.default.servers}"></property>
+		<property name="weights">
+			<list>
+				<value>1</value>
+				<value>2</value>
+				<value>3</value>
+			</list>
+		</property>
+		<!-- nio connection pool size -->
+		<property name="connectionPoolSize" value="200"></property>
+		<property name="commandFactory">
+			<bean class="net.rubyeye.xmemcached.command.BinaryCommandFactory"></bean>
+		</property>
+		<!-- Serializing transcoder -->
+		<property name="transcoder">
+			<bean class="net.rubyeye.xmemcached.transcoders.SerializingTranscoder" />
+		</property>
+	</bean>
+
+	<bean id="xmemcachedProxy" class="com.b5m.search.cache.XMemcachedProxy">
+		<constructor-arg index="0" ref="memcachedClient"></constructor-arg>
+		<property name="retriveTimeout" value="5000"></property>
+		<property name="writeTimeout" value="5000"></property>
+	</bean>
+    
+    <bean class="com.b5m.base.common.utils.cache.MemCachedUtils">
+    	<property name="proxy" ref="xmemcachedProxy"></property>
+    </bean>
+    
+    <bean class="com.b5m.search.cache.CacheAop"/>
+    
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${jdbc.driverClassName}" />
+		<property name="jdbcUrl" value="${jdbc.url}" />
+		<property name="minPoolSize" value="5"></property>
+		<property name="maxPoolSize" value="20"></property>
+		<property name="maxIdleTime" value="1800"></property>
+		<property name="initialPoolSize" value="5"></property>
+		<property name="preferredTestQuery" value="select count(*) from Dual"></property>
+		<property name="idleConnectionTestPeriod" value="1200"></property>
+		<property name="properties">
+			<props>
+				<prop key="user">${jdbc.username}</prop>
+				<prop key="password">${jdbc.password}</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="dao" class="com.b5m.dao.impl.DaoImpl">
+		<constructor-arg ref="dataSource"/>
+	</bean>
+	
+	<bean id="searchThreadPool" class="java.util.concurrent.ThreadPoolExecutor" >
+		<!-- corePoolSize the number of threads to keep in the pool, even if they are idle. -->
+		<constructor-arg index="0" value="100"></constructor-arg>
+		<!-- maximumPoolSize the maximum number of threads to allow in the pool. -->
+		<constructor-arg index="1" value="200"></constructor-arg>
+		<!-- keepAliveTime when the number of threads is greater than the core, this is the maximum time that excess idle 
+	 threads will wait for new tasks before terminating. -->
+		<constructor-arg index="2" value="120"></constructor-arg>
+		<constructor-arg index="3" type="java.util.concurrent.TimeUnit" value="MINUTES"></constructor-arg>
+		<constructor-arg index="4">
+			<bean class="java.util.concurrent.LinkedBlockingQueue">
+				<!-- capacity -->
+				<constructor-arg index="0" value="600"></constructor-arg>
+			</bean>
+		</constructor-arg>
+	</bean>
+	
+	<bean name="sf1Search" class="com.b5m.search.service.impl.SF1NewQueryService">
+		<constructor-arg index="0" ref="searchThreadPool"></constructor-arg>
+	</bean>
+	
+	<bean class="com.b5m.base.common.spring.utils.ApplicationContextUtils"/>
+</beans>

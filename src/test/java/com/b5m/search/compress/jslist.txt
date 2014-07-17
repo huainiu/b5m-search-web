@@ -1,0 +1,6 @@
+taosha/s/js/resultlist
+japan/s/js/resultlist
+s/s/js/resultlist
+haiwai/s/js/resultlist
+usa/s/js/resultlist
+korea/s/js/resultlist
