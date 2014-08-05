@@ -14,7 +14,7 @@
 		<link rel="stylesheet" href="http://y.b5mcdn.com/css/search/??search_result_mini.css?t=${timeVersion}">
 	</c:if>
 	<c:if test="${!reSearchMore}">
-		<link rel="stylesheet" href="http://y.b5mcdn.com/css/search/??search_result_v4.css?t=${timeVersion}">
+		<link rel="stylesheet" href="http://y.b5mcdn.com/css/search/??search_result_v5.css?t=${timeVersion}">
 	</c:if>
 </head>
 <body style="position: relative;">
@@ -54,7 +54,7 @@
 								<c:set var="hasMid" value="false"></c:set>
 							</c:if>
 						</c:when>
-						<c:when test="${layer == 2 || layer == 3}">
+						<c:when test="${layer == 3}">
 							<c:forEach items="${categoryList.linkTree}" var="category" >
 								<c:forEach items="${category.linkTree}" var="categoryLayer1">
 									<c:if test="${categoryLayer1.link.clicked}">
@@ -107,7 +107,7 @@
 						</c:forEach>
 					</ul>
 					<div class="price-input ml20 l ">
-						自定义 <input type="text" class="txt" name="startPrice" id="startPrice"> - <input type="text" class="txt" name="endPrice" id="endPrice"><input type="button" value="确定" class="btn" id="inner-search-btn">
+						价格区间 <input type="text" class="txt" name="startPrice" id="startPrice"> - <input type="text" class="txt" name="endPrice" id="endPrice"><input type="button" value="确定" class="btn" id="inner-search-btn">
 					</div>
 					<ul class="sort-conditions ml20 l" id="ul">
 						<li class="${isFreeDelivery == 1 ? 'cur' : '' }"><a rel="nofollow" href="${freeDeliveryLink}" data-attr='1007'>免运费</a></li>
@@ -124,7 +124,7 @@
 				</div>
 			</div>			
 		</div>
-		<div class="side side-l l">
+		<%-- <div class="side side-l l">
 			<div class="m-bord">
 				<c:if test="${fn:length(categoryList.linkTree)>0}">
 					<div class="s-menu-list " id="J_category_nav">
@@ -151,9 +151,9 @@
 						 <ul class="grid-view" id="show-goods-recommand"></ul>
 					</div>
 			</div>
-		</div>
+		</div>--%>
 		<div class="side side-r l">
-		</div>
+		</div> 
 	</div>
 	<!--淘特价 e-->
 	<input id="taoKeywords" type="hidden" value="${taoKeywords}">
@@ -201,11 +201,15 @@
     </div>
 	<!--底部 e-->
     <!--[if lt IE 9]>
-	<script src="http://y.b5mcdn.com/scripts/search/media_query_v3.js?t=${today}"></script>
+	<script src="http://y.b5mcdn.com/scripts/search/media_query_v3.js?t=${timeVersion}"></script>
 	<![endif]-->
 	<script type="text/javascript" src="http://y.b5mcdn.com/scripts/common/imglazyload.min.js?t=${timeVersion}"></script>
-	<script type="text/javascript" src="http://y.b5mcdn.com/scripts/search/??handlebars.js,highcharts.js,b5mtrend.js,price-trend-common.min.js,PCASClass.js,search_v3.js?t=${timeVersion}"></script>
+	<script type="text/javascript" src="http://y.b5mcdn.com/scripts/search/??handlebars.js,highcharts.js,b5mtrend.js,price-trend-common.min.js,PCASClass.js,search_v5.js,search_v3.js?t=${timeVersion}"></script>
 	<script type="text/javascript" src="http://y.b5mcdn.com/scripts/sp/resultlist.js?t=${timeVersion}"></script>
+	<%-- <script type="text/javascript" src="${serverPath}/s/js/search_v5.js?t=${timeVersion}"></script> --%>
+	<%-- <script type="text/javascript" src="${serverPath}/s/js/search_v3.js?t=${timeVersion}"></script> --%>
+	<%-- <script type="text/javascript" src="${serverPath}/s/js/cart-cater.js?t=${timeVersion}"></script> --%>
+	<script type="text/javascript" src="http://y.b5mcdn.com/scripts/sp/cart-cater.js?t=${timeVersion}"></script>
 	<%-- <script type="text/javascript" src="${serverPath}/s/js/resultlist.${min}js?t=${timeVersion}"></script> --%>
     <!-- 价格趋势图 -->
 	<div id="photo_price" style="display: none;position: absolute;">
@@ -215,13 +219,16 @@
 	<input type="hidden" id="price-trend-type">
 	<jsp:include page="../common/snippet/entry-template.jsp"/>
 	<script type="text/javascript">
+	//<![CDATA[
+	window.newSearch.init();
 	$("img").imglazyload({fadeIn:true});
 	var resultPage = new ResultPage({currentUrl:'${firstPageUrl}'});
 	resultPage.init();
 	//商品推荐keywords, cookId, recordUrl, adSize
-	resultPage.showHistory();
+	//resultPage.showHistory();
 	resultPage.showAd({keywords:"${orignKeyword}",cookId:'${cookieId}', recordUrl:'${adRecordUrl}', adSize: '${adSize}'});
-	resultPage.showRecomand({container: $("#show-goods-recommand"), maxcontaier: $("#rel-goods"), keyword : '${orignKeyword}'});
+	//resultPage.showRecomand({container: $("#show-goods-recommand"), maxcontaier: $("#rel-goods"), keyword : '${orignKeyword}'});
+	//]]>
 	</script>
 </body>
 </html>

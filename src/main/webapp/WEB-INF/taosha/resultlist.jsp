@@ -7,9 +7,14 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<jsp:include page="../common/meta.jsp"/>
+	<title>${key}正品价格_${lastcategory}正品_${key}官方旗舰专卖【店铺、图片、评价怎么样】-淘沙商城</title>
+	<meta name="keywords" content="${key}价格, ${lastcategory}${lastcategory != '' ? '分类名正品,' : ''} ${key}官方旗舰店,${key}专卖店,淘沙商城" />
+	<meta name="description" content="淘沙商城${key}专卖，并郑重承诺${key}均来自各大官方旗舰店的正品行货，经过品牌授权验证、产品质量验证，可放心购买。" />
 	<link rel="stylesheet" type="text/css" href="http://tao.b5mcdn.com/static/css/om.min.css?t=${timeVersion}" />
   	<link rel="stylesheet" type="text/css" href="http://y.b5mcdn.com/static/css/om/om_min.css?t=${timeVersion}">
+  	<script type="text/javascript">
+	var _basePath = "${serverPath}/";
+	</script>
 </head>
 <body>
 	<%@ include file="./include/search.jsp"%>

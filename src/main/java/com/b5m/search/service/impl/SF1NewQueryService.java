@@ -41,20 +41,21 @@ public class SF1NewQueryService {
 	}
 	
 	public SearchDTO search(SuiSearchDto dto) {
-		if(StringUtils.isEmpty(dto.getCollectionName())){
-			dto.setCollectionName("b5mp");
+		String collection = "b5mp";
+		if(!StringUtils.isEmpty(dto.getCollectionName())){
+			collection = dto.getCollectionName();
 		}
-		dto.setRequireRelated(true);
-		SF1SearchBean searchBean = SearchResultHelper.convertTo4Search(dto);
-		SearchDTO searchDTO = sf1Query.doSearch(searchBean);
-		return searchDTO;
+		if("b5mp".equals(collection)){
+			collection = "aggregator";
+		}
+		return search(dto, collection, dto.getServerPath());
 	}
 	
-	public SearchDTO search(SuiSearchDto dto, String collectionName) {
+	public SearchDTO search(SuiSearchDto dto, String collectionName, String serverPath) {
 		dto.setCollectionName(collectionName);
 		dto.setRequireRelated(true);
 		SF1SearchBean searchBean = SearchResultHelper.convertTo4Search(dto);
-		SearchDTO searchDTO = sf1Query.doSearch(searchBean);
+		SearchDTO searchDTO = sf1Query.doSearch(searchBean, serverPath);
 		return searchDTO;
 	}
 	

@@ -12,7 +12,7 @@
 	<jsp:include page="../common/meta.jsp" />
 	<link rel="stylesheet" href="http://y.b5mcdn.com/css/common/common.css" />
 	<link rel="stylesheet" href="http://y.b5mcdn.com/css/search/search_result_common.css?t=${timeVersion}" />
-	<link rel="stylesheet" href="http://y.b5mcdn.com/css/search/search_result_site.css?t=${timeVersion}" />
+	<link rel="stylesheet" href="http://y.b5mcdn.com/css/haiwai/header.css?t=${timeVersion}" />
     <link rel="stylesheet" href="http://y.b5mcdn.com/css/search/search_no_result.css?t=${timeVersion}">
     <link rel="stylesheet" href="http://y.b5mcdn.com/css/you/search_no_result_korea.css?t=${timeVersion}">
 </head>

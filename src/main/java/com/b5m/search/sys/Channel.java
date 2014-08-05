@@ -31,6 +31,10 @@ public class Channel {
 	private boolean categoryUrl;
 	//有些渠道根据国家进行筛选
 	private String country;
+	
+	private String domain;
+	
+	private String headerCss;
 
 	public String getDisplayName() {
 		return displayName;
@@ -126,6 +130,22 @@ public class Channel {
 
 	public void setCountry(String country) {
 		this.country = country;
+	}
+
+	public String getDomain() {
+		return domain;
+	}
+
+	public void setDomain(String domain) {
+		this.domain = domain;
+	}
+
+	public String getHeaderCss() {
+		return headerCss;
+	}
+
+	public void setHeaderCss(String headerCss) {
+		this.headerCss = headerCss;
 	}
 	
 }

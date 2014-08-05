@@ -36,6 +36,7 @@ public class CommInfoSetFilter implements Filter {
 	private static final String DEFAULT_COMMINFO_PATH = "config.properties";
 	private static final String DEFAULT_CHANNEL_CONFIG = "classpath:channels.xml";
 	private static final String CATEGORY_REL_PATH = "search-category.json";
+	private static final String TAOSHA_CATEGORY_REL_PATH = "taosha-category.json";
 	private static String[] nocludeExt;
 	private static Properties properties = null;
 
@@ -105,6 +106,7 @@ public class CommInfoSetFilter implements Filter {
 		}
 		initSysProp();
 		ContextUtils.init(getCategoryRel(), IOUtils.toString(inputStream), properties);
+		ContextUtils.setTaoshaCategoryRel(getTaoshaCategoryRel());
 	}
 
 	private void initSysProp() throws IOException {
@@ -126,8 +128,13 @@ public class CommInfoSetFilter implements Filter {
 	private JSONObject getCategoryRel() throws IOException {
 		InputStream inputStream = CommInfoSetFilter.class.getClassLoader().getResourceAsStream(CATEGORY_REL_PATH);
 		String categoryRel = IOUtils.toString(inputStream);
-		JSONObject categoryRelJson = JSONObject.parseObject(categoryRel);
-		return categoryRelJson;
+		return JSONObject.parseObject(categoryRel);
+	}
+	
+	private JSONObject getTaoshaCategoryRel() throws IOException {
+		InputStream inputStream = CommInfoSetFilter.class.getClassLoader().getResourceAsStream(TAOSHA_CATEGORY_REL_PATH);
+		String categoryRel = IOUtils.toString(inputStream);
+		return JSONObject.parseObject(categoryRel);
 	}
 
 	private String getServerpath(HttpServletRequest req) {

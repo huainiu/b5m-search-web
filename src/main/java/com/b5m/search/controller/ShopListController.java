@@ -3,6 +3,7 @@ package com.b5m.search.controller;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.regex.Matcher;
@@ -94,9 +95,10 @@ public class ShopListController{
 		keyword = DataUtils.strDecode(keyword);
 		SuiSearchDto dto = new SuiSearchDto();
 		dto.setKeyword(keyword);
-		dto.setCategoryValue(ContextUtils.getCategoryByCode(cat));
+		dto.setCategoryValue(ContextUtils.getCategoryByCode(cat, ContextUtils.isTaoshaChannel(channel)));
 		dto.setCurrPageNo(pageNum);
 		request.setAttribute("_cat_url_", true);
+		request.setAttribute("_channel_name_", channel);
 		ResultType resultType = searchGoodsList(channel, dto, model, request, response);
 		return resultTo(channel, resultType);
 	}
@@ -118,9 +120,11 @@ public class ShopListController{
 	public ResultType searchGoodsList(String channel, SuiSearchDto dto, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Channel _channel = ContextUtils.getChannel(channel);
 		if(_channel == null){
+			response.setStatus(404);
 			response.sendRedirect("http://www.b5m.com/404.html");
 		}
 		dto.setCollectionName(_channel.getCollection());
+		dto.setServerPath(_channel.getServerPath());
 		//查询之前进行处理
 		beforeSearch(model, dto, _channel, request);
 		if (StringUtils.isEmpty(dto.getKeyword()) && StringUtils.isEmpty(dto.getCategoryValue())) {
@@ -165,9 +169,26 @@ public class ShopListController{
 		}
 		//组装页面显示的数据
 		ShopListDto shopList = SearchResultHelper.createShopListDto(searchDTO, dto, request, response);
+		//迟早会删除的
+		sortTaosha(shopList);
 		//填充
 		fillModeAttr(model, shopList, dto);
+		model.addAttribute("channel", _channel);
 		return ResultType.HAVE;
+	}
+	
+	public void sortTaosha(ShopListDto shopList){
+		List<LinkDto> linkDtos = shopList.getSourceLinks();
+		LinkDto taosha = null;
+		for(LinkDto linkDto : linkDtos){
+			if("淘沙商城".equals(linkDto.getText())){
+				taosha = linkDto;
+			}
+		}
+        if(taosha != null){
+        	linkDtos.remove(taosha);
+        	linkDtos.add(0, taosha);
+        }
 	}
 	
 	/**
@@ -249,16 +270,18 @@ public class ShopListController{
 		}
 		setConditionToModel(model, dto);
 		dto.setCountry(_channel.getCountry());
-		model.addAttribute("detailPath", detailPath(_channel));
+		model.addAttribute("detailPath", detailPath(_channel, request));
 	}
 	
-	public String detailPath(Channel _channel){
-		String name = _channel.getName();
-		if("japan".equals(name)) return "jp";
-		if("haiwai".equals(name)) return "haiwaip";
-		if("usa".equals(name)) return "usa";
-		if("korea".equals(name)) return "korea";
-		return "";
+	public String detailPath(Channel _channel, HttpServletRequest request){
+		String serverPath = request.getServerName();
+		if(serverPath.indexOf("stage") >= 0){
+			return _channel.getDomain() + ".stage.bang5mai.com";
+		}
+		if(serverPath.indexOf("prod") >= 0){
+			return _channel.getDomain() + ".prod.bang5mai.com";
+		}
+		return _channel.getDomain() + ".b5m.com";
 	}
 	
 	public void queryRefineKeywords(SuiSearchDto dto, Model model, HttpServletRequest request){

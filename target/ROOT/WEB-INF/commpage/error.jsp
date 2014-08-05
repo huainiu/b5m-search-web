@@ -15,9 +15,9 @@ request.setAttribute("basePath", basePath);
 <base href="${basePath}" />
 <title>帮5买 - 轻松发现， 轻松选择！</title>
 <meta name="title" content="帮5买 - 轻松发现， 轻松选择！" /> 
-<link href="${basePath}css/header.css?t=${today}" type="text/css" rel="stylesheet" />
-<link href="${basePath}css/error.css?t=${today}" type="text/css" rel="stylesheet" />
-<script type="text/javascript" src="http://y.b5mcdn.com/static/scripts/common/jquery-1.9.1.min.js?t=${today}"></script>
+<link href="${basePath}css/header.css?t=${timeVersion}" type="text/css" rel="stylesheet" />
+<link href="${basePath}css/error.css?t=${timeVersion}" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="http://y.b5mcdn.com/static/scripts/common/jquery-1.9.1.min.js?t=${timeVersion}"></script>
 </head>
 <body>
 
@@ -73,7 +73,7 @@ function googleAnalyticsInit(login) {
 	var ga = document.createElement("script");
 	ga.type = "text/javascript";
 	ga.async = true;
-	ga.src = ("https:" == document.location.protocol ? "https://ssl" : "http://www") + ".google-analytics.com/ga.js?t=${today}";
+	ga.src = ("https:" == document.location.protocol ? "https://ssl" : "http://www") + ".google-analytics.com/ga.js?t=${timeVersion}";
 	var s = document.getElementsByTagName("script")[0];
 	s.parentNode.insertBefore(ga, s);
 }

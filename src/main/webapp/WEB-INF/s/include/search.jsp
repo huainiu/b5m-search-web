@@ -4,13 +4,16 @@
 <div class="head">
 	<div class="wp cf">
 		<div class="logo l">
-			<a href="http://www.b5m.com"><img src="http://y.b5mcdn.com/static/images/www/logo.png" alt="#"></a>
+			<a href="http://www.b5m.com"><img src="http://y.b5mcdn.com/images/www/logo.png" alt="#"></a>
 		</div>
+		<div class="logo-banner">
+            <a data-mps="21045" href="http://www.b5m.com/qwdh.html?mps=____.1001.0.21045.0"><img src="http://cdn.bang5mai.com/upload/web/cmsphp//link/201408/d80e6b5d0e0117202633.jpg" alt="" width="80" height="80"></a>
+        </div>
 		<div class="search-input">
             <form action="${serverPath}/s/Search" onsubmit="if(document.getElementById('scbar_txt').value=='')return false;form_submit()" autocomplete="off" method="get" name="scbar_form" id="scbar_form">
                 <span class="header-search-content">
                     <input data-attr="1005" name="key" type="text" x-webkit-grammar="builtin:search" x-webkit-speech="" autocomplete="off" id="scbar_txt" placeholder="搜索从这里开始" value="${keyword}" class="header-search-key J_autofill af-input act">
-                    <input type="submit" class="header-rearch-submit" onclick="if(document.getElementById('scbar_txt').value!='')setTimeout(form_submit(this),0);" value="帮5搜">
+                    <input type="submit" class="header-rearch-submit" onclick="if(document.getElementById('scbar_txt').value!='')setTimeout(form_submit(this),0);" value="搜全网">
                 </span>
             </form>
 		</div>

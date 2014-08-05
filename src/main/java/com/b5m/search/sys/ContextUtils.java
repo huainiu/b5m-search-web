@@ -40,6 +40,24 @@ public class ContextUtils {
 		SearchContext.getInstance().setChannels(channelsMap);
 	}
 	
+	public static void setTaoshaCategoryRel(JSONObject categoryRel){
+		SearchContext.getInstance().taoshaCategoryRel = categoryRel;
+	}
+	
+	public static String getCategoryByCode(String code, boolean isTaosha){
+		if(isTaosha){
+			return SearchContext.getInstance().taoshaCategoryRel.getString(code);
+		}
+		return SearchContext.getInstance().categoryRel.getString(code);
+	}
+	
+	public static String getCodeByCategory(String category, boolean isTaosha){
+		if(isTaosha){
+			return SearchContext.getInstance().taoshaCategoryRel.getString(category);
+		}
+		return SearchContext.getInstance().categoryRel.getString(category);
+	}
+	
 	public static String getCategoryByCode(String code){
 		return SearchContext.getInstance().categoryRel.getString(code);
 	}
@@ -58,6 +76,10 @@ public class ContextUtils {
 	
 	public static Channel getChannel(String channel){
 		return SearchContext.getInstance().getChannel(channel);
+	}
+	
+	public static boolean isTaoshaChannel(String channel){
+		return "taosha".equals(channel);
 	}
 	
 	public static String get404Page(){

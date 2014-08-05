@@ -3,10 +3,17 @@
 <div class="tpbar"></div>
 <div class="header">
     <div class="wp cfx">
-        <h1 class="header-logo fl"><a title="韩国馆" href="http://korea.b5m.com"><img src="http://staticcdn.b5m.com/static/images/korea/logo.png" alt="韩国馆"></a></h1>
-        <div class="header-tools-search">
+        <h1 class="header-logo fl">
+        	<a title="韩国馆" href="http://korea.b5m.com">
+        		<img src="http://staticcdn.b5m.com/static/images/logos/korea.png" alt="韩国馆">
+        	</a>
+        </h1>
+        <div class="logo-banner">
+            <a data-mps="21045" href="http://www.b5m.com/qwdh.html?mps=____.1001.0.21045.0"><img src="http://cdn.bang5mai.com/upload/web/cmsphp//link/201408/d80e6b5d0e0117202633.jpg" alt="" width="80" height="80"></a>
+        </div>
+        <div class="header-tools-search" style="margin:25px 0px 0px 40px">
             <form action="${serverPath}/s/Search" onsubmit="if(document.getElementById('scbar_txt').value=='')return false;form_submit()" autocomplete="off" method="post" name="scbar_form" id="scbar_form" class="search-form" >
-                <span class="header-search-content"><input data-attr="1005" type="text" x-webkit-grammar="builtin:search" x-webkit-speech="" name="key"  autocomplete="off" id="scbar_txt" placeholder="快速搜索全网最新商品与资讯" value="${keyword}" class="header-search-key J_autofill af-input act"><input type="submit" class="header-rearch-submit"  onclick="if(document.getElementById('scbar_txt').value!='')setTimeout(form_submit(this),0);" value="帮5搜"></span>
+                <span class="header-search-content"><input data-attr="1005" type="text" x-webkit-grammar="builtin:search" x-webkit-speech="" name="key"  autocomplete="off" id="scbar_txt" placeholder="快速搜索全网最新商品与资讯" value="${keyword}" class="header-search-key J_autofill af-input act"><input type="submit" class="header-rearch-submit"  onclick="if(document.getElementById('scbar_txt').value!='')setTimeout(form_submit(this),0);" value="搜全网"></span>
             </form>
             <input type="hidden" name="search_type" id="search_type" value="item" />
             <script type="text/javascript">

@@ -9,9 +9,8 @@
 	<meta charset="UTF-8">
 	<%@ include file="../common/meta.jsp" %>
 	<link rel="stylesheet" href="http://y.b5mcdn.com/css/common/common.css?t=${timeVersion}" />
-	<link rel="stylesheet" href="http://y.b5mcdn.com/css/search/search_result_common.css?t=${timeVersion}" />
-	<link rel="stylesheet" href="http://y.b5mcdn.com/css/search/search_result_site.css?t=${timeVersion}" />
-	<link rel="stylesheet" href="http://staticcdn.b5m.com/css/korea/index.css?v=20141231536" />
+	<link rel="stylesheet" href="http://y.b5mcdn.com/css/korea/header.css?v=${timeVersion}" />
+	<link rel="stylesheet" href="http://y.b5mcdn.com/css/search/??search_result_v5.css?t=${timeVersion}">
 </head>
 <body style="position: relative;">
 	<%@ include file="./include/search.jsp"%>
@@ -50,7 +49,7 @@
 								<c:set var="hasMid" value="false"></c:set>
 							</c:if>
 						</c:when>
-						<c:when test="${layer == 2 || layer == 3}">
+						<c:when test="${layer == 3}">
 							<c:forEach items="${categoryList.linkTree}" var="category" >
 								<c:forEach items="${category.linkTree}" var="categoryLayer1">
 									<c:if test="${categoryLayer1.link.clicked}">
@@ -103,7 +102,7 @@
 						</c:forEach>
 					</ul>
 					<div class="price-input ml20 l ">
-						自定义 <input type="text" class="txt" name="startPrice" id="startPrice"> - <input type="text" class="txt" name="endPrice" id="endPrice"><input type="button" value="确定" class="btn" id="inner-search-btn">
+						价格区间 <input type="text" class="txt" name="startPrice" id="startPrice"> - <input type="text" class="txt" name="endPrice" id="endPrice"><input type="button" value="确定" class="btn" id="inner-search-btn">
 					</div>
 					<ul class="sort-conditions ml20 l" id="ul">
 						<li class="${isFreeDelivery == 1 ? 'cur' : '' }"><a rel="nofollow" href="${freeDeliveryLink}" data-attr='1007'>免运费</a></li>
@@ -120,7 +119,7 @@
 				</div>
 			</div>			
 		</div>
-		<div class="side side-l l">
+		<%-- <div class="side side-l l">
 			<div class="m-bord">
 				<c:if test="${fn:length(categoryList.linkTree)>0}">
 					<div class="s-menu-list " id="J_category_nav">
@@ -147,7 +146,7 @@
 						 <ul class="grid-view" id="show-goods-recommand"></ul>
 					</div>
 			</div>
-		</div>
+		</div> --%>
 		<div class="side side-r l">
 		</div>
 	</div>
@@ -200,7 +199,7 @@
 	<script src="http://y.b5mcdn.com/scripts/search/media_query_v3.js?t=${timeVersion}"></script>
 	<![endif]-->
 	<script type="text/javascript" src="http://y.b5mcdn.com/scripts/common/imglazyload.min.js?t=${timeVersion}"></script>
-	<script type="text/javascript" src="http://y.b5mcdn.com/scripts/search/??handlebars.js,highcharts.js,b5mtrend.js,price-trend-common.min.js,PCASClass.js,search_v3.js?t=${timeVersion}"></script>
+	<script type="text/javascript" src="http://y.b5mcdn.com/scripts/search/??handlebars.js,highcharts.js,b5mtrend.js,price-trend-common.min.js,PCASClass.js,search_v3.js,search_v5.js?t=${timeVersion}"></script>
 	<script type="text/javascript" src="http://y.b5mcdn.com/scripts/sp/resultlist.js?t=${timeVersion}"></script>
     <!-- 价格趋势图 -->
 	<div id="photo_price" style="display: none;position: absolute;">
@@ -214,9 +213,9 @@
 	var resultPage = new ResultPage({currentUrl:'${firstPageUrl}'});
 	resultPage.init();
 	//商品推荐keywords, cookId, recordUrl, adSize
-	resultPage.showHistory();
+	//resultPage.showHistory();
 	resultPage.showAd({keywords:"${orignKeyword}",cookId:'${cookieId}', recordUrl:'${adRecordUrl}', adSize: '${adSize}'});
-	resultPage.showRecomand({container: $("#show-goods-recommand"), maxcontaier: $("#rel-goods"), keyword : '${orignKeyword}'});
+	//resultPage.showRecomand({container: $("#show-goods-recommand"), maxcontaier: $("#rel-goods"), keyword : '${orignKeyword}'});
 	</script>
 </body>
 </html>

@@ -11,11 +11,11 @@
 	<title>搜索无结果</title>
 	<jsp:include page="../common/meta.jsp" />
 	<link rel="stylesheet" href="http://y.b5mcdn.com/css/common/common.css" />
-	<link rel="stylesheet" href="http://y.b5mcdn.com/css/search/search_result_common.css?t=${today}" />
-	<link rel="stylesheet" href="http://y.b5mcdn.com/css/search/search_result_site.css?t=${today}" />
-    <link rel="stylesheet" href="http://y.b5mcdn.com/css/search/search_no_result.css?t=${today}">
-    <link rel="stylesheet" href="http://y.b5mcdn.com/css/you/search_no_result_korea.css?t=${today}">
-    <link rel="stylesheet" href="http://staticcdn.b5m.com/css/korea/index.css??t=${today}">
+	<link rel="stylesheet" href="http://y.b5mcdn.com/css/search/search_result_common.css?t=${timeVersion}" />
+	<link rel="stylesheet" href="http://y.b5mcdn.com/css/search/search_result_site.css?t=${timeVersion}" />
+    <link rel="stylesheet" href="http://y.b5mcdn.com/css/search/search_no_result.css?t=${timeVersion}">
+    <link rel="stylesheet" href="http://y.b5mcdn.com/css/you/search_no_result_korea.css?t=${timeVersion}">
+    <link rel="stylesheet" href="http://y.b5mcdn.com/css/korea/header.css?v=${timeVersion}" />
 </head>
 <body>
 	<jsp:include page="./include/search.jsp" />

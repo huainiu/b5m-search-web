@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@page session="false"%>
-<%-- <script type="text/javascript" src="http://y.b5mcdn.com/static/scripts/public/copyright.js?t=${today}"></script> --%>
+<%-- <script type="text/javascript" src="http://y.b5mcdn.com/static/scripts/public/copyright.js?t=${timeVersion}"></script> --%>
 <!-- footer start -->
 <div class="footer">
 	<div class="footer-links">
@@ -35,7 +35,7 @@
 		var as = document.createElement('script');
 		as.type = 'text/javascript';
 		as.async = true;
-		as.src = "https://d31qbv1cthcecs.cloudfront.net/atrk.js?t=${today}";
+		as.src = "https://d31qbv1cthcecs.cloudfront.net/atrk.js?t=${timeVersion}";
 		var s = document.getElementsByTagName('script')[0];
 		s.parentNode.insertBefore(as, s);
 	})();
@@ -44,7 +44,7 @@
 	<img src="https://d5nxst8fruw4z.cloudfront.net/atrk.gif?account=InfVh1aUXR00ax" style="display: none" height="1" width="1" alt="" />
 </noscript>
 <!-- seajs s -->
-	<script id="b5m-libs" type="text/javascript" src="http://y.b5mcdn.com/static/public/sea-modules/dist/libs.js" rootpath="http://y.b5mcdn.com/static/public/sea-modules/dist" version="${today}"></script>
+	<script id="b5m-libs" type="text/javascript" src="http://y.b5mcdn.com/static/public/sea-modules/dist/libs.js" rootpath="http://y.b5mcdn.com/static/public/sea-modules/dist" version="${timeVersion}"></script>
 <!-- seajs e -->
 <!-- End Alexa Certify Javascript -->
 <script type='text/javascript' src='http://cdn.bang5mai.com/upload/web/public/app/tongji/stat2.min.js??t=${timeVersion}'></script>

@@ -14,6 +14,7 @@ import com.alibaba.fastjson.JSONObject;
 public class SearchContext {
 	private static SearchContext instance;
 	public JSONObject categoryRel;
+	public JSONObject taoshaCategoryRel;
 	private Map<String, Channel> channels;
 	private String version;
 	private String tokenKey;

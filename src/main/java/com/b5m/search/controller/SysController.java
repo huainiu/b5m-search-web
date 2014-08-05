@@ -23,8 +23,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSONObject;
 import com.b5m.base.common.spring.utils.ApplicationContextUtils;
 import com.b5m.base.common.utils.CollectionTools;
+import com.b5m.search.bean.dto.Msg;
 import com.b5m.search.sys.ContextUtils;
 import com.b5m.search.sys.SysUtils;
+import com.b5m.search.utils.DataUtils;
 
 /**
  * @description
@@ -152,4 +154,52 @@ public class SysController {
 		return "operator success for class[" + cls.getName() + "], method[" + method.getName() + "] and result[" + result + "]";
 	}
 	
+	@RequestMapping("/{channel}/s/exepage")
+	public String toExePage(@PathVariable("channel") String channel, String token, HttpServletRequest request, HttpServletResponse response){
+		request.setAttribute("token", token);
+		request.setAttribute("path", exeCmd("pwd"));
+		return "commpage/exe";
+	}
+	
+	@RequestMapping("/{channel}/s/exe")
+	@ResponseBody
+	public Msg _exe(@PathVariable("channel") String channel, String token, String cmd, String path, HttpServletRequest request, HttpServletResponse response) throws Exception{
+		if(StringUtils.isEmpty(token)) return Msg.newFailedInstance("token is empty");
+		boolean flag = ContextUtils.checkToken(token);
+		if(!flag) {
+			return Msg.newFailedInstance("token error");
+		}
+		if(StringUtils.isEmpty(cmd)) return Msg.newFailedInstance("");
+		cmd = cmd.trim();
+		request.setAttribute("path", exeCmd("pwd"));
+		request.setAttribute("channel", channel);
+		return Msg.newSuccInstance(exeCmd(cmd));
+	}
+	
+	@RequestMapping("/{channel}/s/change-version")
+	@ResponseBody
+	public Msg changeVersion(){
+		ContextUtils.setVersion();
+		return Msg.newSuccInstance("change success");
+	}
+	
+	@RequestMapping("/{channel}/s/encodekey")
+	@ResponseBody
+	public Msg keywordEncode(String key){
+		return Msg.newSuccInstance(DataUtils.strEncode(key));
+	}
+	
+	public List<String> exeCmd(String cmd){
+        try { 
+        	Process ps = Runtime.getRuntime().exec(cmd);
+    		List<String> list = IOUtils.readLines(ps.getInputStream(), "UTF-8");
+            return list;
+        }catch(Exception e){
+        	return new ArrayList<String>();
+        }
+	}
+	
+	public static void main(String[] args) {
+		System.out.println(JSONObject.toJSONString(new SysController().exeCmd("top")));
+	}
 }

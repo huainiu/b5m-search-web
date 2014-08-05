@@ -10,7 +10,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>搜索无结果</title>
 	<jsp:include page="../common/meta.jsp" />
-	<link rel="stylesheet" href="http://y.b5mcdn.com/css/??common/common.css,search/search_head_v3.css?t=${today}" />
+	<link rel="stylesheet" href="http://y.b5mcdn.com/css/??common/common.css,search/search_head_v3.css?t=${timeVersion}" />
 	<link rel="stylesheet" href="http://y.b5mcdn.com/css/search/search_no_result.css?t=${timeVersion}">
 </head>
 <body>

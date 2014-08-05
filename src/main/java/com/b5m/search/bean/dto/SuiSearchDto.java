@@ -56,6 +56,8 @@ public class SuiSearchDto implements Serializable {
 	private String orignKeyword;
 	//给usa 和 korea用的
 	private String country;
+	//服务链接
+	private String serverPath;
 	
 	public String getCollectionName() {
 		return collectionName;
@@ -240,4 +242,13 @@ public class SuiSearchDto implements Serializable {
 	public void setCountry(String country) {
 		this.country = country;
 	}
+
+	public String getServerPath() {
+		return serverPath;
+	}
+
+	public void setServerPath(String serverPath) {
+		this.serverPath = serverPath;
+	}
+	
 }

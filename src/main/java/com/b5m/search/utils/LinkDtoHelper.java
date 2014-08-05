@@ -93,7 +93,7 @@ public class LinkDtoHelper {
 		}
 		if(isCatUrl && needUrlEncode){
 			if(!StringUtils.isEmpty(category)){
-				String categoryCode = ContextUtils.getCodeByCategory(category);
+				String categoryCode = ContextUtils.getCodeByCategory(category, isTaoshaChannel(request));
 				sb.append(categoryCode);
 			}
 			sb.append("-").append(DataUtils.strEncode(keywords));
@@ -146,6 +146,10 @@ public class LinkDtoHelper {
 	//判断是否是类目url
 	private static boolean isCatUrl(HttpServletRequest request){
 		return request.getAttribute("_cat_url_") != null && request.getAttribute("_cat_url_").toString().length() > 0;
+	}
+	
+	private static boolean isTaoshaChannel(HttpServletRequest request){
+		return request.getAttribute("_channel_name_") != null && ContextUtils.isTaoshaChannel(request.getAttribute("_channel_name_").toString());
 	}
 	
 	private static boolean contain(String key){

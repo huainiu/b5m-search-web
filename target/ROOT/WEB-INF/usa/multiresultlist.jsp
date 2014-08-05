@@ -8,7 +8,7 @@
 <head>
 	<meta charset="utf-8">
 	<%@ include file="../common/meta.jsp" %>
-	<link rel="stylesheet" href="http://y.b5mcdn.com/css/search/search_result_v3.css?t=${today}">
+	<link rel="stylesheet" href="http://y.b5mcdn.com/css/search/search_result_v3.css?t=${timeVersion}">
 </head>
 <body>
 	<%@ include file="./include/search.jsp"%>
@@ -128,16 +128,16 @@
 	<input id="category" type="hidden" value="${category}">
 	<!--底部 s-->
 	<%@ include file="../commpage/footer.jsp"%>
-	<script src="http://y.b5mcdn.com/scripts/search/search_v3.js?t=${today}"></script>
+	<script src="http://y.b5mcdn.com/scripts/search/search_v3.js?t=${timeVersion}"></script>
     <!--[if lt IE 9]>
-	<script src="http://y.b5mcdn.com/scripts/search/media_query_v3.js?t=${today}"></script>
+	<script src="http://y.b5mcdn.com/scripts/search/media_query_v3.js?t=${timeVersion}"></script>
 	<![endif]-->
-	<script type="text/javascript" src="http://y.b5mcdn.com/scripts/search/highcharts.js?t=${today}"></script>
-	<script type="text/javascript" src="http://y.b5mcdn.com/scripts/search/b5mtrend.min.js?t=${today}"></script>
+	<script type="text/javascript" src="http://y.b5mcdn.com/scripts/search/highcharts.js?t=${timeVersion}"></script>
+	<script type="text/javascript" src="http://y.b5mcdn.com/scripts/search/b5mtrend.min.js?t=${timeVersion}"></script>
 	
-    <script type="text/javascript" src="http://y.b5mcdn.com/scripts/common/imglazyload.min.js?t=${today}"></script>
-	<script type="text/javascript" src="http://y.b5mcdn.com/scripts/search/price-trend-common.min.js?t=${today}"></script>
-	<script type="text/javascript" src="http://y.b5mcdn.com/scripts/search/resultlist.min.js?t=${today}"></script>
+    <script type="text/javascript" src="http://y.b5mcdn.com/scripts/common/imglazyload.min.js?t=${timeVersion}"></script>
+	<script type="text/javascript" src="http://y.b5mcdn.com/scripts/search/price-trend-common.min.js?t=${timeVersion}"></script>
+	<script type="text/javascript" src="http://y.b5mcdn.com/scripts/search/resultlist.min.js?t=${timeVersion}"></script>
 	
 	<!-- 价格趋势图 -->
 	<div id="photo_price" style="display: none;position: absolute;">

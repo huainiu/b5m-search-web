@@ -7,7 +7,7 @@
 	<div class="goods-filter">
 		<h3 class="s-icon goods-f">商家筛选</h3>
 		<ul class="g-fil">
-			<c:forEach items="${sourceLinks}" var="source" varStatus="status" begin="0" end="7">
+			<c:forEach items="${sourceLinks}" var="source" varStatus="status">
 				<c:set value="" var="sourceClass"/>
 				<c:if test="${source.clicked}">
 					<c:set value="cur" var="sourceClass"/>
