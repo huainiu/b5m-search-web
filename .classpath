@@ -33,5 +33,6 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/b5m-server-api"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

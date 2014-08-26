@@ -6,8 +6,23 @@
 		<collection>taosha</collection>
 		<domain>tao</domain>
 		<pageSize>36</pageSize>
-		<resultPage>taosha/resultlist</resultPage>
+		<resultPage>commpage/resultlist</resultPage>
 		<noResultPage>taosha/noresult</noResultPage>
+		<!-- 属性过滤功能 -->
+		<filterAttr>false</filterAttr>
+		<needMoreResearch>false</needMoreResearch>
+		<categoryUrl>false</categoryUrl>
+		<serverPath>http://10.10.99.188:8888/sf1r</serverPath>
+		<headerCss>http://y.b5mcdn.com/css/search/search_head_v3.css</headerCss>
+	</channel>
+	<channel>
+		<displayName>淘沙New</displayName>
+		<name>tsdian</name>
+		<collection>taosha</collection>
+		<domain>tsdian</domain>
+		<pageSize>36</pageSize>
+		<resultPage>tsdian/resultlist</resultPage>
+		<noResultPage>tsdian/noresult</noResultPage>
 		<!-- 属性过滤功能 -->
 		<filterAttr>false</filterAttr>
 		<needMoreResearch>false</needMoreResearch>

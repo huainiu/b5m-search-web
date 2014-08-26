@@ -17,6 +17,7 @@
 	<c:if test="${!reSearchMore}">
 		<link rel="stylesheet" href="http://y.b5mcdn.com/css/search/??search_result_v5.css?t=${timeVersion}">
 	</c:if>
+	
 </head>
 <body style="position: relative;">
 	<jsp:include page="../${channel.name}/include/search.jsp"></jsp:include>
@@ -37,7 +38,7 @@
 				在${includeSourceCount}个商家中，找到相关商品<strong class="product-nums cl-ff78">${itemCount}</strong>个
 				<div class="feedback-box">
 					<a href="javascript:void(0)" class="search-feedback popup-trigger" data-target="feed-popup">搜索不好？</a>
-					<span class="give-bangdou">送帮钻</span>
+					<!-- <span class="give-bangdou">送帮钻</span> -->
 				</div>
 			</div>
 		</div>
@@ -170,7 +171,7 @@
 	<!-- <a id="gotofushi" href="javascript:void(0);" class="gotofushi" style="margin-left: 780px;display: none;">进入服饰精品区</a> -->
 	<div class="popup feed-popup">
         <div class="popup-in">
-            <p class="feed-slogan"><a id='feedback-login'>登录</a></p>
+            <!-- <p><a id='feedback-login'>登录</a></p> -->
             <form class="form-horizontal feed-form">
                 <div class="control-group">
                     <label class="control-label" for="keywords"><em>*</em>您搜索的关键词是：</label>
@@ -209,8 +210,7 @@
 	<script type="text/javascript" src="http://y.b5mcdn.com/scripts/sp/resultlist.js?t=${timeVersion}"></script>
 	<script type="text/javascript" src="http://y.b5mcdn.com/scripts/sp/cart-cater.js?t=${timeVersion}"></script>
 	<%-- <script type="text/javascript" src="${serverPath}/s/js/search_v3.js?t=${timeVersion}"></script> --%>
-	<%-- <script type="text/javascript" src="${serverPath}/s/js/search_v3.js?t=${timeVersion}"></script>
-	<script type="text/javascript" src="${serverPath}/s/js/cart-cater.js?t=${timeVersion}"></script> --%> 
+	<%-- <script type="text/javascript" src="${serverPath}/s/js/cart-cater.js?t=${timeVersion}"></script> --%> 
 	<%-- <script type="text/javascript" src="${serverPath}/s/js/search_v5.js?t=${timeVersion}"></script>
 	<%-- <script type="text/javascript" src="${serverPath}/s/js/resultlist.${min}js?t=${timeVersion}"></script> --%>
     <!-- 价格趋势图 -->
@@ -223,6 +223,15 @@
 	<script type="text/javascript">
 	//<![CDATA[
 	window.newSearch.init();
+	var $search_box = $('.search .search-box');
+	$search_box.find('input').on({
+		focus: function(){
+			$search_box.addClass('search-box-hl');
+		},
+		blur: function(){
+			$search_box.removeClass('search-box-hl');
+		}
+	});
 	$("img").imglazyload({fadeIn:true});
 	var resultPage = new ResultPage({currentUrl:'${firstPageUrl}'});
 	resultPage.init();

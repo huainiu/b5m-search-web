@@ -16,6 +16,12 @@
 	
   <dependencies>
   	<dependency>
+        <groupId>b5m-server-api</groupId>
+        <artifactId>b5m-server-api</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+	    
+  	<dependency>
 		<groupId>javax.servlet</groupId>
 		<artifactId>servlet-api</artifactId>
 		<version>2.5</version>

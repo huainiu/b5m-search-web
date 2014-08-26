@@ -204,35 +204,7 @@ ResultPage.prototype.showRecomand = function(opt){
 };
 ResultPage.prototype.getDetailUrl = function(docId){
 	return getDetailUrl(docId);
-	/*if (!docId) {
-        return '';
-    }
-    var host = 's.b5m.com';
-    if(location.host.indexOf("haiwai") >= 0){
-    	docId = '__' + docId;
-    	host = 'haiwai.b5m.com';
-    }
-    if(location.host.indexOf("korea") >= 0){
-    	docId = '__' + docId;
-    	host = 'korea.b5m.com';
-    }
-    if(location.host.indexOf("usa") >= 0){
-    	docId = '__' + docId;
-    	host = 'usa.b5m.com';
-    }
-    if(location.port && location.port != 80){
-    	var link = location.href;
-    	if(link.indexOf("?") > 0){
-    		link = link.substring(0, link.indexOf("?"));
-    	}
-    	if(link.indexOf("haiwai") >= 0){
-    		docId = "__" + docId;
-    		host = 'haiwai.b5m.com';
-    	}
-    }
-    var url = 'http://' + host + '/item/' + docId + '.html';
-    return url;*/
-}
+};
 ResultPage.prototype.getRelKeywords = function(keyword, callback){
 //	http://search.b5m.com/allAutoFill.htm?keyWord=ip
 	var url = "http://s.b5m.com/allAutoFill.htm";
@@ -299,7 +271,11 @@ ResultPage.prototype.showAd = function(opt) {
 				if(picUrl.indexOf('b5mcdn.com') > 0){
 					picUrl = picUrl + "/260x258";
 				}
-				var pichtml = "<div class='pic-wrap'><a class='pic' href='" + jumpUlr + "' target='_blank'><img alt='' src='" + picUrl + "'></a></div>";
+				var img = "";
+				if(ads[i].OriginalPicture){
+					img = ads[i].OriginalPicture.split(",")[0];
+				}
+				var pichtml = "<div class='pic-wrap'><a class='pic' href='" + jumpUlr + "' target='_blank'><img alt='' src='" + picUrl + "' onerror=\"this.src='" + img + "'\"></a></div>";
 				var pricehtml = "<div class='price'><strong><b>¥</b>" + price + "</strong></div>";
 				var summaryhtml = "<div class='summary'><a href='" + jumpUlr + "' target='_blank'>" + title + "</a></div>";
 				var adrshtml = "<img alt='' src='" + opt.recordUrl + "?cid=" + opt.cookId + "&aid=" + ads[i].aid + "&da=V" + (i + 1) + "&ad=108&dl=" + encodeURIComponent(window.location.href) + "&dstl=" + ads[i].durl + "&lt=8800&t="+new Date().getTime()+"&rp=1002&dd=" + ads[i].DOCID + "' style='display: none;'>";

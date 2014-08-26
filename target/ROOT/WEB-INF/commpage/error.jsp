@@ -24,7 +24,7 @@ request.setAttribute("basePath", basePath);
 <div id="error" class="w980">
     <!--err-hd s-->
     <div class="err-hd">
-    	<h1 class="logo"><a href="${b5mUrl}"><img src="http://y.b5mcdn.com/static/images/www/logo.png" /></a></h1>
+    	<h1 class="logo"><a href="${b5mUrl}"><img src="http://staticcdn.b5m.com/images/logos/b5m.png" /></a></h1>
     </div>
     <!--err-hd e-->
     

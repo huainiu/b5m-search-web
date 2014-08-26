@@ -32,7 +32,7 @@
 				<div class="grid-in" data-attr="1008">
 					<div class="pic-wrap" data-attr="1008">
 						<c:if test="${stat.index < 4 }">
-							<a class="pic" href="${detailUrl}" data-attr="1008" target="_blank"><img data-attr="1008" class="grid-mod-pic" src="${picturePath}" alt="${res.Title}"></a>
+							<a class="pic" href="${detailUrl}" data-attr="1008" target="_blank"><img data-attr="1008" class="grid-mod-pic" src="${picturePath}" onerror="this.src='${fn:split(res.OriginalPicture, ',')[0]}'" alt="${res.Title}"></a>
 						</c:if>
 						<c:if test="${stat.index >= 4 }">
 							<a class="pic" href="${detailUrl}" data-attr="1008" target="_blank"><img data-attr="1008" class="grid-mod-pic" src="http://tfs01.b5mcdn.com/image/T1BZxCBXJv1RCvBVdK" lazy-src="${picturePath}" onerror="this.src='${fn:split(res.OriginalPicture, ',')[0]}'" alt="${res.Title}"></a>
@@ -75,7 +75,7 @@
 							</c:when>
 							<c:otherwise>
 								<c:if test="${res.Source != '淘宝网'}">
-									<a href="http://s.b5m.com/exchange/item.htm?docId=${res.DOCID}" target="_blank" class="duihuan r" data-attr="102001"></a>
+									<a href="http://s.b5m.com/exchange/item.htm?docId=${res.DOCID}&c=${c}" target="_blank" class="duihuan r" data-attr="102001"></a>
 								</c:if>
 								<div class="nums-goods l" data-attr="1008">
 									<em>${res.Source}</em>
@@ -134,7 +134,22 @@
 				<c:set value="${docResourceDto.res}" var="res" />
 				<c:set value="${docResourceDto.norms}" var="norms" />
 				<c:set value="${docResourceDto.subResources}" var="subResources" />
-
+				<c:set value="${res.Picture}" var="picturePath" />
+				<c:set value="${fn:indexOf(res.Picture, 'img.b5m.com')}" var="pictureIndex" />
+				<c:if test="${pictureIndex < 0}">
+					<c:set value="${fn:indexOf(res.Picture, 'b5mcdn.com')}" var="pictureIndex" />
+				</c:if>
+				<c:if test="${pictureIndex > 0}">
+					<c:set value="${res.Picture}/200X200" var="picturePath" />
+				</c:if>
+				<!-- 淘宝 和天猫商城图片 用原网站的 -->
+				<c:if test="${fn:indexOf(resource.OriginalPicture, 'taobaocdn.com') > 0}">
+					<c:set value="${fn:split(resource.OriginalPicture, ',')[0]}_200x200.jpg" var="picturePath" />
+				</c:if>
+				<c:if test="${fn:indexOf(resource.OriginalPicture, 'alicdn.com') > 0}">
+					<c:set value="${fn:split(resource.OriginalPicture, ',')[0]}_200x200.jpg" var="picturePath" />
+				</c:if>
+		
 				<c:url var="detailUrl" value="http://s.b5m.com/item/${res.DocId}.html"></c:url>
 				<c:if test="${fn:length(subResources) >= 1}">
 					<c:url var="detailUrl" value="http://s.b5m.com/compare/${res.DocId}.html"></c:url>

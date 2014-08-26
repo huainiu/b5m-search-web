@@ -44,7 +44,7 @@
                 <li class="index cur"><a data-attr="1004" href="http://haiwai.b5m.com/" target="_self">首页</a></li>
                 <li><a href="http://korea.b5m.com/" target="_blank" data-attr="1004">韩国馆</a></li>
                 <li><a href="http://usa.b5m.com" target="_blank" data-attr="1005">美国馆</a></li>
-                <li><a href="http://jp.b5m.com" target="_blank" data-attr="1006">日本馆</a></li>
+                <!-- <li><a href="http://jp.b5m.com" target="_blank" data-attr="1006">日本馆</a></li> -->
                 <li><a data-attr="1004" target="_blank" href="http://haiwai.b5m.com/zhuanti-all-1.html">专题</a></li>
             </ul>
         </div>

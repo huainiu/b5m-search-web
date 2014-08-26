@@ -18,10 +18,13 @@
     <context:component-scan base-package="com.b5m.search.service.impl"/>
     
     <util:properties id="config" location="classpath:config.properties"/>
+    
     <context:property-placeholder location="classpath:config.properties"/>
     <bean id="sf1Query" class="com.b5m.sf1api.service.impl.Sf1QueryImpl">
     	<constructor-arg index="0" ref="config"/>
     </bean>
+    
+    <import resource="application-api.xml" />
     
     <bean id="memcachedClient"
 		class="net.rubyeye.xmemcached.utils.XMemcachedClientFactoryBean">

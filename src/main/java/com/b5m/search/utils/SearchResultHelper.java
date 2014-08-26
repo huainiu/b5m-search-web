@@ -53,9 +53,13 @@ public class SearchResultHelper {
 		builder.page(searchDto.getPageSize(), (searchDto.getCurrPageNo() - 1) * searchDto.getPageSize());
 		builder.getAttr(true, 20).sort(searchDto.getSortField(), searchDto.getSortType());
 		builder.filterByPrice(searchDto.getPriceFrom(), searchDto.getPriceTo());
-		builder.category(searchDto.getCategoryValue());
 		builder.sources(searchDto.getSourceValue()).queryAbbreviation(true);
 		builder.keywords(searchDto.getKeyword()).isRequireRelated(true);
+		builder.category(searchDto.getCategoryValue());
+//		if("*".equals(searchDto.getKeyword())){
+//			builder.addCondition("Category", "starts_with", new String[]{searchDto.getCategoryValue()});
+//		}else{
+//		}
 		//设置过滤属性
 		setAttrFilter(searchDto, builder);
 		//设置group
@@ -158,13 +162,13 @@ public class SearchResultHelper {
 	}
 	
 	public static void filterAttr(Map<String, Attibute> filterMap, SearchDTO searchDto) {
-		List<GroupTree> attributeTrees = searchDto.getAttributeTrees();
+		List<GroupTree> attributeTrees = searchDto.getAttributeTree();
 		if (CollectionUtils.isEmpty(attributeTrees) || CollectionUtils.isEmpty(filterMap))
 			return;
 		String[] attrRanks = getAttrRanks(filterMap);
 		if(attrRanks.length > 0){//如果排序值大于1 则进行排序
 			attributeTrees = rankAttrValue(attributeTrees, attrRanks);
-			searchDto.setAttributeTrees(attributeTrees);
+			searchDto.setAttributeTree(attributeTrees);
 		}
 		int length = attributeTrees.size();
 		for (int i = 0; i < length; i++) {
@@ -257,7 +261,7 @@ public class SearchResultHelper {
 	}
 	
 	protected static List<AttrLinkDto> createAttrList(SearchDTO searchDto, HttpServletRequest request, HttpServletResponse response, String basePath) {
-		List<GroupTree> attributeTrees = searchDto.getAttributeTrees();
+		List<GroupTree> attributeTrees = searchDto.getAttributeTree();
 		List<AttrLinkDto> attrLinkDtos = CollectionTools.newListWithSize(5);
 		AttrLinkDto brandAttrLink = null;
 		for (GroupTree groupTree : attributeTrees) {

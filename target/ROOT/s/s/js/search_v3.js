@@ -1,5 +1,4 @@
-;
-(function($, window, document) {
+;(function($, window, document) {
 
     $(function() {
         //有奖调查
@@ -63,6 +62,9 @@
             $('.gotop,.gotofushi,.feed-awards').css({
                 'marginLeft': posLeft
             });
+            $('.right-cart').css({
+                'marginLeft':posLeft
+            })
         },
         scrollBar: function() {
             setTimeout(function() {
@@ -859,10 +861,12 @@ ProdDetail.prototype.getCol = function(){
 		var host = location.hostname;
 		if(host.indexOf('haiwai') >= 0 || host.indexOf('usa') >= 0 || host.indexOf('korea') >= 0) return 'haiwaip';
 		if(host.indexOf('jp') >= 0) return 'japan';
+		if(host.indexOf('tao') >= 0) return 'taosha';
 		return '';
 	}
 	if(location.href.indexOf('haiwai/s') >= 0 || location.href.indexOf('usa/s') >= 0 || location.href.indexOf('korea/s') >= 0) return 'haiwaip';
 	if(location.href.indexOf('jp/s') >= 0) return 'japan';
+	if(location.href.indexOf('tao/s') >= 0) return 'taosha';
 	return '';
 }
 
@@ -1035,16 +1039,16 @@ ProdDetail.prototype.getDetail = function(index, $this) {
         //初始化分享 content, pic, url
         initShare(context.daigouSource.Title, [context.daigouSource.Picture], getDetailUrl(context.daigouSource.DOCID));
 
-        //添加价格趋势
-        base.showProductPriceTrendByDocid(price_ChartID, data.val.Source, forecastPrice)
         base.setPos(docId);
 
+        //添加价格趋势
+        //base.showProductPriceTrendByDocid(price_ChartID, data.val.Source, forecastPrice)
         //显隐价格趋势图
-        $html.find('.J_price_trend').hover(function() {
+        /*$html.find('.J_price_trend').hover(function() {
             base.showChart(price_ChartID);
         }, function() {
             base.hideChart(price_ChartID);
-        });
+        });*/
 
         //隐藏产品详情弹出框
         $('#' + docId + '_prod').find('.pop-close').on('click', function() {
@@ -1060,7 +1064,8 @@ ProdDetail.prototype.getDetail = function(index, $this) {
     		docId: context.daigouSource.DOCID,
     		url:context.daigouSource.originUrl,
     		priceAvg:context.daigouSource.HighPrice,
-    		searchPath:context.searchPath
+    		searchPath:context.searchPath,
+    		source : context.daigouSource.Source
     	});
     	cartCenter.init();
     	//降价提醒
@@ -1090,7 +1095,7 @@ ProdDetail.prototype.getAds = function(keywords, cookId, recordUrl, adSize, need
     //     success: function(data) {
     //         var ads = data.val,
     //             ads_len = ads.length,
-    //             //需要请求的推荐商品的数据量
+    //             //需要请求的推荐商品的数据量   
     //             diff_val = adSize - ads_len,
     //             html = '';
 
@@ -1150,7 +1155,7 @@ ProdDetail.prototype.getAds = function(keywords, cookId, recordUrl, adSize, need
     	if(sources) {
     		for(var index = 0; index < sources.length; index++){
     			var source = sources[index];
-    			$container.append('<li><a target="blank" href="' + getDetailUrl(source.DOCID) + '"><img src="'+source.Picture+'" alt=""><span class="fv-icon ' + base.getLogoIcon(source.Source) + '"></span><span class="icon-mask"></span><span class="mask-text">&yen;'+source.Price+'</span></a></li>');
+    			$container.append('<li><a target="blank" href="' + getDetailUrl(source.DOCID) + '"><img src="'+source.Picture+'" alt="" onerror="this.src=\''+source.OriginalPicture.split(",")[0]+'\'"><span class="fv-icon ' + base.getLogoIcon(source.Source) + '"></span><span class="icon-mask"></span><span class="mask-text">&yen;'+source.Price+'</span></a></li>');
     			have = true;
     		}
     	}
@@ -1170,12 +1175,29 @@ ProdDetail.prototype.getAds = function(keywords, cookId, recordUrl, adSize, need
     			success: function(data) {
     				var ads = data.val;
     				if(ads.length < 1) {
-    					$container.hide();
+    					$(".pl-ctn").hide();
     					return;
     				}
     				for (var i = 0; i < ads.length; i++) {
-    					$container.append('<li><a target="blank" href="' + ads[i].Url + '"><img src="'+ads[i].Picture+'" alt=""><span class="' + base.getLogoIcon(ads[i].Source) + '"></span><span class="icon-mask"></span><span class="mask-text">&yen;'+ads[i].Price+'</span></a></li>');
+    					var img = "";
+    					if(ads[i].OriginalPicture){
+    						img = ads[i].OriginalPicture.split(",")[0];
+    					}
+    					$container.append('<li><a target="blank" href="' + ads[i].Url + '"><img src="'+ads[i].Picture+'" alt="" onerror="this.src=\'' + img + '\'"><span class="' + base.getLogoIcon(ads[i].Source) + '"></span><span class="icon-mask"></span><span class="mask-text">&yen;'+ads[i].Price+'</span></a></li>');
     				}
+    				base.relGoods(function(data, num){
+    					for (var j = 0; j < num; j++) {
+    		                if (data[j]) {
+    		                    var item = data[j];
+    		                    if(item.Source == '淘宝网') continue;
+    		                    var img = "";
+    	    					if(item.OriginalPicture){
+    	    						img = ads[i].OriginalPicture.split(",")[0];
+    	    					}
+    		                    $container.append('<li><a target="blank" href="' + getDetailUrl(item.DOCID) + '"><img src="'+item.Picture+'" alt="" onerror="this.src=\'' + img + '\'"><span class="' + base.getLogoIcon(item.Source) + '"></span><span class="icon-mask"></span><span class="mask-text">&yen;'+item.Price+'</span></a></li>');
+    		                }
+    		            }
+    				}, 6 - ads.length);
     				$(".pl-ctn .tit").text('正品推荐');
     				setSliderWidth($(".pop-ls")[0]);
     			}
@@ -1185,6 +1207,28 @@ ProdDetail.prototype.getAds = function(keywords, cookId, recordUrl, adSize, need
     // }
     // });
 }
+ProdDetail.prototype.relGoods = function(callBack, num){
+	if(num <= 0) return;
+	var relGoodsUrl = base.baseUrl;
+    if(location.port && location.port != 80){
+    	var link = location.href;
+    	var firstIndex = link.indexOf("/", link.indexOf(location.hostname)) + 1;
+    	var channel = link.substring(firstIndex, link.indexOf("/", firstIndex));
+    	relGoodsUrl = relGoodsUrl + channel + "/";
+    }
+    $.ajax({
+        url: relGoodsUrl + 's/relGoods.htm?t=' + new Date().getTime(),
+        type: 'POST',
+        data: {
+            docId: docId,
+            title: keywords,
+            pageSize: 10
+        },
+        success: function(data) {
+        	callBack(data, num);
+        }
+    });
+};
 ProdDetail.prototype.getLogoIcon = function(source){
 	if('天猫' == source) return 'fv-icon icon-tianmao';
 	if('京东商城' == source) return 'fv-icon icon-jingdong';
@@ -1194,7 +1238,7 @@ ProdDetail.prototype.getLogoIcon = function(source){
 	if('易迅网' == source) return 'fv-icon icon-yixun';
 	if('唯品会官网' == source) return 'fv-icon icon-weipinhui';
 	return "";
-}
+};
 ProdDetail.prototype.showPop = function(id, obj) {
     $('#' + id + '_prod').css({
         display: 'block'
@@ -1211,26 +1255,27 @@ ProdDetail.prototype.hidePop = function(id, obj) {
         $(this).hide();
     });
     obj.data('isOpen', 'false').removeClass('grid-ls-on');
-}
+};
 
 ProdDetail.prototype.setPos = function(id) {
-    var base = this,
-        popLeft = $('#' + id + '_prod').offset().left;
-
-    $('#' + id + '_prod').find('.pop-arrow').css({
-        left: (base.offetLeft - popLeft) + parseInt(base.offsetWidth / 2) - 9
-    })
-}
+	if(!$('#' + id + '_prod').offset()) return;
+	var base = this,
+	popLeft = $('#' + id + '_prod').offset().left;
+	
+	$('#' + id + '_prod').find('.pop-arrow').css({
+		left: (base.offetLeft - popLeft) + parseInt(base.offsetWidth / 2) - 9
+	});
+};
 
 ProdDetail.prototype.showChart = function(chartId) {
     var $chart = $('#chart_' + chartId);
     $chart.fadeIn();
-}
+};
 
 ProdDetail.prototype.hideChart = function(chartId) {
     var $chart = $('#chart_' + chartId);
     $chart.fadeOut();
-}
+};
 
 /**
  * 绘制价格趋势
@@ -1329,6 +1374,18 @@ Handlebars.registerHelper('listProdServer', function(sInfo) {
     return htmls;
 });
 
+
+Handlebars.registerHelper('duihuanCol', function() {
+    var port = location.port;
+    if(port && port != '80'){
+        return '';
+    }
+    var domain = window.document.domain;
+    var port = location.port;
+    domain = domain.substring(0, domain.indexOf('.'));
+    return domain;
+});
+
 Handlebars.registerHelper('showUrl', function(docId, isCompare) {
     return getDetailUrl(docId);
 });
@@ -1412,7 +1469,6 @@ Handlebars.registerHelper('listSubDocs', function(subDocs) {
         mallUrl = '',
         mallName = '';
 
-    //剔除第一条数据，所以从第二条开始循环
     for (var i = 1; i < len; i++) {
 
         mallPrice = subDocs[i].Price;
@@ -1439,6 +1495,10 @@ Handlebars.registerHelper('genuineLogic', function(source, isLowCompPrice) {
 		html = html + '<span class="icon-tuikua"><i>退</i>下单后涨价，我们全额退款</span>';
 	}
     return html;
+})
+
+Handlebars.registerHelper('onePicture', function(OriginalPicture) {
+	return OriginalPicture.split(",")[0];
 })
 
 Handlebars.registerHelper('listTags', function(tags) {

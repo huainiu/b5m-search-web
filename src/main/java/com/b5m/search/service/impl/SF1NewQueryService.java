@@ -11,6 +11,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.fastjson.JSONObject;
+import com.b5m.base.common.spring.aop.Cache;
 import com.b5m.base.common.utils.CollectionTools;
 import com.b5m.base.common.utils.ThreadTools;
 import com.b5m.search.bean.dto.SuiSearchDto;
@@ -40,6 +41,7 @@ public class SF1NewQueryService {
 		this.threadPool = threadPool;
 	}
 	
+	@Cache
 	public SearchDTO search(SuiSearchDto dto) {
 		String collection = "b5mp";
 		if(!StringUtils.isEmpty(dto.getCollectionName())){
@@ -52,11 +54,17 @@ public class SF1NewQueryService {
 	}
 	
 	public SearchDTO search(SuiSearchDto dto, String collectionName, String serverPath) {
-		dto.setCollectionName(collectionName);
-		dto.setRequireRelated(true);
-		SF1SearchBean searchBean = SearchResultHelper.convertTo4Search(dto);
-		SearchDTO searchDTO = sf1Query.doSearch(searchBean, serverPath);
-		return searchDTO;
+		for(int i = 0; i < 3; i++){
+			try {
+				dto.setCollectionName(collectionName);
+				dto.setRequireRelated(true);
+				SF1SearchBean searchBean = SearchResultHelper.convertTo4Search(dto);
+				SearchDTO searchDTO = sf1Query.doSearch(searchBean, serverPath);
+				return searchDTO;
+			} catch (Exception e) {
+			}
+		}
+		return new SearchDTO();
 	}
 	
 	public SearchDTO[] multiSearch(SuiSearchDto dto) {

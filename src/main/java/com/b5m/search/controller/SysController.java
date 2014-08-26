@@ -3,6 +3,7 @@ package com.b5m.search.controller;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.lang.reflect.Method;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,7 +38,7 @@ import com.b5m.search.utils.DataUtils;
  * @mail wuming@b5m.com
  */
 @Controller
-public class SysController {
+public class SysController implements InitializingBean{
 	
 	@RequestMapping("/sys/log")
 	@ResponseBody
@@ -178,7 +180,7 @@ public class SysController {
 	
 	@RequestMapping("/{channel}/s/change-version")
 	@ResponseBody
-	public Msg changeVersion(){
+	public Msg changeVersion() throws IOException{
 		ContextUtils.setVersion();
 		return Msg.newSuccInstance("change success");
 	}
@@ -201,5 +203,10 @@ public class SysController {
 	
 	public static void main(String[] args) {
 		System.out.println(JSONObject.toJSONString(new SysController().exeCmd("top")));
+	}
+
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		
 	}
 }

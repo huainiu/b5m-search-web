@@ -1,7 +1,6 @@
 package com.b5m.search.utils;
 
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -75,7 +74,6 @@ public class LinkDtoHelper {
 			category = cat; 
 		}
 		String pageNum = parameters.get(REQUEST_PARAMS[6]);
-		boolean isfirst = true;
 		boolean needUrlEncode = true;
 		
 		StringBuffer params = new StringBuffer();
@@ -102,7 +100,6 @@ public class LinkDtoHelper {
 			}
 			sb.append(".html?");
 		}else{
-			isfirst = false;
 			sb.append("?").append(REQUEST_PARAMS[12]).append("=").append(keywords);
 			if(!StringUtils.isEmpty(category)){
 				sb.append("&").append(REQUEST_PARAMS[11]).append("=").append(category);
@@ -117,23 +114,6 @@ public class LinkDtoHelper {
 			}
 			params.deleteCharAt(params.length() - 1);
 			sb.append(params);
-		}
-		
-		Enumeration<String> keys = request.getParameterNames();
-		while(keys.hasMoreElements()){
-			String key = keys.nextElement();
-			if(contain(key)) continue;
-			String value = request.getParameter(key);
-			if(StringTools.isEmpty(value)){
-				continue;
-			}
-			if(isfirst){
-				sb.append("?");
-				isfirst = false;
-			}else{
-				sb.append("&");
-			}
-			sb.append(key).append("=").append(value);
 		}
 		String url = sb.toString();
 		if(url.endsWith("?") || url.endsWith("&")){

@@ -21,7 +21,7 @@ import com.b5m.base.common.utils.DateTools;
  */
 public class ContextUtils {
 	private static Properties properties;
-	private static String[] collections = new String[]{"b5mo", "hotel", "ticketp", "tourguide", "tourp", "tuanm", "zdm", "she", "haiwaip", "haiwaiinfo", "guang", "doctor", "usa", "korea", "koreainfo"};
+	private static String[] collections = new String[]{"b5mo", "hotel", "ticketp", "tourguide", "tourp", "tuanm", "zdm", "she", "haiwaip", "haiwaiinfo", "guang", "doctor", "usa", "korea", "koreainfo", "taosha"};
 	
 	public static void init(JSONObject categoryRel, String xmlConfig, Properties properties){
 		SearchContext.getInstance();
@@ -124,11 +124,10 @@ public class ContextUtils {
     	return tokenStr.toString();
     }
     
-    public static String getAutofillName(String collection){
-		if("b5mo".equals(collection)) return "b5mp";
-		if("ticketp".equals(collection)) return "ticket";
-		if("tourp".equals(collection)) return "tour";
-		if("tuanm".equals(collection)) return "tuan";
-		return collection;
+    public static String getAutofillName(Channel _channel){
+		if("s".equals(_channel.getDomain())) return "b5mo";
+		if("haiwai".equals(_channel.getDomain())) return "haiwaip";
+		if("tao".equals(_channel.getDomain())) return "taosha";
+		return "b5mo";
 	}
 }

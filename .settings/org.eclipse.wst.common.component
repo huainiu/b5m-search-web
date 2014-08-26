@@ -6,6 +6,9 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/java"/>
+        <dependent-module archiveName="b5m-server-api-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/b5m-server-api/b5m-server-api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="b5m-search-web"/>
         <property name="java-output-path" value="/b5m-search-web/target/classes"/>
     </wb-module>

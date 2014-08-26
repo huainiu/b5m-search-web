@@ -103,7 +103,7 @@
    		 </div>
   	</div>
 	<jsp:include page="./include/footer.jsp"/>
-	<script type="text/javascript" src="${serverPath}/s/js/resultlist.${min}js?t=${timeVersion}"></script>
+	<script type="text/javascript" src="${serverPath}/s/js/resultlist.js?t=${timeVersion}"></script>
 	<script type="text/javascript">
 	var resultPage = new ResultPage({currentUrl:'${firstPageUrl}'});
 	resultPage.init();

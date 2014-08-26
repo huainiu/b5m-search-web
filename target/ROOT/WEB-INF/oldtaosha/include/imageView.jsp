@@ -24,7 +24,7 @@
 								<span><c:if test="${res.isFreeDelivery == 1}">免运费</c:if></span><i><b>￥${res.Price}</b></i>
 							</div>
 							<div class="con">
-								<i><a href="http://tao.b5m.com/index.php?dispatch=companies.view&company_id=${res.CompanyId}" target="_blank">${res.ShopName}</a></i>
+								<i><a href="http://www.tsdian.com/index.php?dispatch=companies.view&company_id=${res.CompanyId}" target="_blank">${res.ShopName}</a></i>
 								<c:if test="${res.ProductSource != null && res.ProductSource != ''}"><span>${res.ProductSource}发货</span></c:if>
 							</div>
 							<div class="total">已售出${res.SalesAmount}件</div>

@@ -6,8 +6,10 @@
 	this.paramurl = opt.paramurl || '';//来自b5t那边传递过来的url
 	this.subPrice = Number(opt.subPrice) || 0.5;//降价多少
 	this.searchPath = opt.searchPath || "http://s.b5m.com";
+	this.source = opt.source;
 }
 CartCenter.prototype.init = function(){
+	$(".btn-red-two").attr("href", "javascript:void(0)");
 	var _this = this;
 	//显示规格
 	this.showGuige();
@@ -78,9 +80,13 @@ CartCenter.prototype.modifyPrice = function(pval){
 };
 CartCenter.prototype.showGuige = function(){
 	var _this = this;
+	var data={"docId": _this.docId, "url": _this.url};
+	if(window.location.host.indexOf("tao") == 0 || "淘沙商城" == _this.source){
+		data.col = "taosha";
+	}
 	$.ajax({
 		url:_this.searchPath + "/ontimesku/single.htm",
-		data:{"docId": _this.docId, "url": _this.url},
+		data: data,
 		dataType: 'jsonp',
 		jsonp: 'jsonCallback',
 		success:function(result){
@@ -91,8 +97,11 @@ CartCenter.prototype.showGuige = function(){
 	});
 };
 CartCenter.prototype.displayGuige = function(val){
+	$(".btn-red-two").attr("href", "http://cart.b5m.com/").attr("target", "_blank");
 	$(".centrt-sku").show();
-	$(".centre-onload").hide();
+	$(".prod-b5m-price").show();
+	$(".prod-btns").show();
+	$(".loading-tip").hide();
 	this.clickBtn();
 	if(!val.skuProps || val.skuProps.length < 1) {
 		return;
@@ -246,29 +255,78 @@ CartCenter.prototype.clickBtn = function(){
 		return true;
 	});
 };
+var Ajax = {};
+Ajax.post = function(url, data, callback){
+	$.ajax({
+		type : "POST",
+		url : url,
+		data : data,
+		async: false,
+		success : function(result) {
+			callback(result);
+		}});
+};
+Ajax.jsonpPost = function(url, data, callback){
+	$.ajax({
+		url: url,
+		async: false,
+		dataType: 'jsonp',
+		data: data,
+		jsonp:'jsonCallback',
+		success : function(result) {
+			callback(result);
+		}});
+};
 CartCenter.prototype.addCart = function(call){
 	var _this = this;
 	var _docId = _this.docId;
 	var _priceAvg = _this.priceAvg;
 	var _goodsSpec = _this.getGoodsSpec();
 	var pval = $("#quantity005").val();
-	$.ajax({
+	var url = this.searchPath + "/daigoucart/add.htm";
+	var data = { docId : _docId,
+			     priceAvg : _priceAvg,
+			     goodsSpec : _goodsSpec,
+			     count : pval,
+			     ref: _this.ref,
+			     url: _this.paramurl,
+			     col: _this.getCol()
+		       };
+	if(window.location.host.indexOf('search.') == 0 || window.location.host.indexOf('s.') == 0){
+		Ajax.post(url, data, call);
+		return;
+	}
+	Ajax.jsonpPost(url, data, call);
+	/*$.ajax({
 		type : "post",
 		url : this.searchPath + "/daigoucart/add.htm",
 		async: false,
-		dataType: 'jsonp',
-		jsonp: 'jsonCallback',
 		data : {
 			docId : _docId,
 			priceAvg : _priceAvg,
 			goodsSpec : _goodsSpec,
 			count : pval,
 			ref: _this.ref,
-			url: _this.paramurl
+			url: _this.paramurl,
+			col: _this.getCol()
 		},success : function(json) {
 			call(json);
 		}
-	});
+	});*/
+};
+CartCenter.prototype.getCol = function(){
+	var location = window.location;
+	if(!location.port || location.port == 80){
+		var host = location.hostname;
+		if(host.indexOf('haiwai') >= 0 || host.indexOf('usa') >= 0 || host.indexOf('korea') >= 0) return 'haiwaip';
+		if(host.indexOf('jp') >= 0) return 'japan';
+		if(host.indexOf('tao') >= 0) return 'taosha';
+		return '';
+	}
+	if(location.href.indexOf('haiwai/s') >= 0 || location.href.indexOf('usa/s') >= 0 || location.href.indexOf('korea/s') >= 0) return 'haiwaip';
+	if(location.href.indexOf('jp/s') >= 0) return 'japan';
+	if(location.href.indexOf('tao/s') >= 0) return 'taosha';
+	return '';
 };
 CartCenter.prototype.getGoodsSpec = function(){
 	var goosSpec = "";

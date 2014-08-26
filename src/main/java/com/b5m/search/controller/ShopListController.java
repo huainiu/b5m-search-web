@@ -133,7 +133,7 @@ public class ShopListController{
 		//title设置
 		ShoplistHelper.setTitle(dto, model);
 		//是否需要纠错查询
-		queryRefineKeywords(dto, model, request);
+		//queryRefineKeywords(dto, model, request);
 		//过滤属性查询
 		if(_channel.isFilterAttr()){//是否需要属性过滤
 			queryFilterAttr(dto);
@@ -145,7 +145,6 @@ public class ShopListController{
 			dto.setKeyword(searchDTO.getAnalyzerResult());
 			SearchDTO[] searchDTOWraps = sf1Search.multiSearch(dto);
 			if (searchDTOWraps.length >= 1 && searchDTOWraps[0] != null) {
-				model.addAttribute("priceTrendDocIds", SearchResultHelper.getPriceTrendDocIds(searchDTOWraps[0]));
 				model.addAttribute("searchDTOWraps", searchDTOWraps);
 				return ResultType.MORE;
 			}
@@ -174,6 +173,10 @@ public class ShopListController{
 		//填充
 		fillModeAttr(model, shopList, dto);
 		model.addAttribute("channel", _channel);
+		request.setAttribute("c", _channel.getCollection());
+		if(_channel.getDomain().equals("s")){
+			request.setAttribute("c", "");
+		}
 		return ResultType.HAVE;
 	}
 	
@@ -199,7 +202,7 @@ public class ShopListController{
 	 * @email echo.weng@b5m.com
 	 */
 	protected void beforeSearch(Model model, SuiSearchDto dto, Channel _channel, HttpServletRequest request) {
-		request.setAttribute("autofillName", ContextUtils.getAutofillName(_channel.getCollection()));
+		request.setAttribute("autofillName", ContextUtils.getAutofillName(_channel));
 		// 每页显示个数
 		dto.setPageSize(_channel.getPageSize());
 		String categoryValue = dto.getCategoryValue();
@@ -250,8 +253,13 @@ public class ShopListController{
 		dto.setSourceValue(request.getParameter(params[2]));
 		dto.setAttrs(request.getParameter(params[3]));
 		dto.setPriceFrom(request.getParameter(params[4]));
+		if(StringUtils.isEmpty(dto.getPriceFrom())){
+			dto.setPriceFrom("0");
+		}
 		dto.setPriceTo(request.getParameter(params[5]));
-		
+		if(StringUtils.isEmpty(dto.getPriceTo())){
+			dto.setPriceTo("1000000");
+		}
 		String freeDelivery = request.getParameter(params[8]);
 		if("1".equals(freeDelivery) || "0".equals(freeDelivery)){
 			dto.setIsFreeDelivery(freeDelivery);

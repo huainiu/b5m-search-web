@@ -8,7 +8,7 @@
                 <div class="prod-details-pic l">
                     <div class="main-slider">
                         <div class="main-slider-pic">
-                            <img src="{{Picture}}" alt="">
+                            <img src="{{Picture}}" alt="" onerror="this.src='{{onePicture OriginalPicture}}'">
                         </div>
                         <div class="slider-bar cf mini-slider">
                             <ul class="cf">
@@ -29,7 +29,7 @@
 						<div class="bshare-custom icon-medium l b5m-share"></div>
 					</div>
 					<!--
-					<div class="prod-remind">
+					<div class="prod-remind cf">
 						<span class="remind-me" id="J_count_down"><i></i>降价提醒我</span>
 					</div>
 					-->
@@ -46,50 +46,69 @@
                 </div>
                 <div class="prod-details-txt">
                     <h3><a href="{{showUrl DocId SubDocsCount}}" class="prod-details-title" target="_blank" title="{{Title}}">{{Title}}</a></h3>
-					<div class="loading-tip" style="display:none">
+					<div class="loading-tip">
 						<img alt="" src="http://y.b5mcdn.com/images/search/5-121204194026.gif">
 						<br>
 						<span>商品信息正在玩命加载中…</span>
 					</div>
-                    <div class="prod-average-price">
-						<p>全网均价：<span class="definite-price"><span>￥</span><font class="average-price" data="{{daigouSource.HighPrice}}">{{daigouSource.HighPrice}}</font></span></p>
-						<a href="{{daigouSource.originUrl}}" target="_blank">直接购买&gt;</a>
-					</div>
-					<div class="prod-b5m-price">
-						<div class="b5m-price l">
-							<div class="b5m-price-low">帮我买价格：<span><i>¥</i><font class="total-product-price" data="{{daigouSource.Price}}">{{daigouSource.Price}}</font></span></div>
-							<div>
-								{{#genuineLogic daigouSource.Source daigouSource.isLowCompPrice}}{{/genuineLogic}}
-							</div>
-						</div>
-						<div class="cut-price l">
-							<div class="cut-price-num">帮您节省了：<span><i>¥</i><font class="remain-price">{{remainPrice}}</font></span></div>
-							<!--
-							<div>
-								{{#priceTrendTypeShowFun trend}}{{/priceTrendTypeShowFun}}
-							</div>
-							-->
-						</div>
-					</div>
-					<div class="prod-sku-info centrt-sku centrt-sku-error">
+					<div class="prod-sku-info centrt-sku centrt-sku-error" style="display:none">
 						<p class="info-tips" style="display:none"><em class="icon-warning-red"></em>请选择你要的商品信息</p>
 						<dl class="">
-							<dt>数量：</dt>
+							<dt>数量:</dt>
 							<dd class="centre-details-quantity"> 
 								<span class="btn-subtraction" data-cid="C_002" data-id="005">-</span><span class="input-box"><input type="text" class="p-text" value="1" name="quantity005" id="quantity005"></span><span class="btn-add" data-cid="C_002" data-id="005">+</span><font> 件</font>
 							</dd>
 						</dl>
 					</div>
-					<div class="prod-btns">
-						<a id="J_count_down" class="btn btn-b5m-buy btn-red-two" href="http://cart.b5m.com/" target="_blank"><i></i>帮我买</a>
-						<a class="btn btn-shop-cart btn-orange" href="javascript:void(0)"><i></i>加入购物车</a>
-						<span class="add-cart-success" style="display:none"><a class="go-to-cart" href="http://cart.b5m.com/" target="_blank">去购物车结算</a><a class="go-shoping" href="">继续购物</a><i class="cart-close"></i></span>
-						<a class="btn btn-shop-diamond" href="http://s.b5m.com/exchange/item.htm?docId={{daigouSource.DOCID}}" target="_blank">帮钻兑换
+                    <!--
+					<a class="btn btn-shop-diamond" href="http://s.b5m.com/exchange/item.htm?docId={{daigouSource.DOCID}}&col={{col}}" target="_blank">帮钻兑换
 							<span class="what-is-bangzuan">
 								兑换该商品需要<em class="duihuanbangzhuan">{{duihuanbangzhuan}}</em>帮钻<br>
 								购买该商品可获得<em class="bangzhuan">{{bangzhuan}}</em>帮钻
 							</span>
+					</a>
+                    -->
+					<div class="prod-b5m-price" style="display:none">
+						<div class="b5m-price">
+							<div class="b5m-price-low">
+								<a class="bzdh r" href="http://s.b5m.com/exchange/item.htm?docId={{daigouSource.DOCID}}&c={{col}}" target="_blank">帮钻兑换</a>
+								帮我买价：<span><i>¥</i><span class="total-product-price" data="{{daigouSource.Price}}">{{daigouSource.Price}}<span></span></span>
+							</div>
+							<div class="avg-price">
+								<a class="gobuy r" href="{{daigouSource.originUrl}}" target="_blank">自行购买&gt;</a>
+								全网均价：<span>￥<span class="average-price" data="{{daigouSource.HighPrice}}">{{daigouSource.HighPrice}}</span></span>
+							</div>
+						</div>
+						<div class="cut-price">
+							<div>
+								<!--{{#priceTrendTypeShowFun trend}}{{/priceTrendTypeShowFun}}-->
+								{{#genuineLogic daigouSource.Source daigouSource.isLowCompPrice}}{{/genuineLogic}}	
+							</div>
+						</div>
+					</div>
+					<div class="prod-btns" style="display:none">
+						<a id="J_count_down" class="btn btn-b5m-buy btn-red-two" href="javascript:void(0)"><i></i>帮我买</a>
+						<a class="btn btn-shop-cart btn-orange" href="javascript:void(0)"><i></i>加入购物车</a>
+						<span class="add-cart-success" style="display:none"><a class="go-to-cart" href="http://cart.b5m.com/" target="_blank">去购物车结算</a><a class="go-shoping" href="">继续购物</a><i class="cart-close"></i></span>
+						<a href="javascript:;" class="c2wa">
+							<span class="s-l">
+								<span>客户端购买</span><br>
+								<span class="red">满50减2元</span>
+							</span>
+							<span class="s-r"><img src="http://y.b5mcdn.com/images/search/c2wa.png" alt="扫一扫"></span>
+							<span class="ss-img-ctn">
+								<span class="ss-img">
+									<img src="http://qrcode.b5mcdn.com/image/qrCode.htm?url=http://s.m.b5m.com/s/goodsDetail?docId={{daigouSource.DOCID}}" alt="">
+									<span class="ss-arrow-down"></span>
+								</span>
+							</span>
 						</a>
+                        <!--
+						<div class="c2wa">
+							<div class="s-img"><img src="http://qrcode.b5mcdn.com/image/qrCode.htm?url=http://s.m.b5m.com/s/goodsDetail?docId={{daigouSource.DOCID}}" alt="扫一扫" /></div>
+							<div class="s-tip">扫一扫<br />立减<span>1元</span></div>
+							<span class="icon-ss"></span>
+						</div>-->
 						<p><a class="what-is-b5m" href="http://www.b5m.com/bwm" target="_blank">什么是帮5买？</a></p>
 					</div>
                 </div>

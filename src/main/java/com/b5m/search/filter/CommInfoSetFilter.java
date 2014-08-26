@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.InetSocketAddress;
 import java.util.Properties;
 
 import javax.servlet.Filter;
@@ -15,12 +16,16 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.rubyeye.xmemcached.MemcachedClient;
+import net.rubyeye.xmemcached.XMemcachedClientBuilder;
+
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.alibaba.fastjson.JSONObject;
+import com.b5m.base.common.utils.CollectionTools;
 import com.b5m.search.common.GlobalWebCfg;
 import com.b5m.search.sys.ContextUtils;
 
@@ -39,6 +44,8 @@ public class CommInfoSetFilter implements Filter {
 	private static final String TAOSHA_CATEGORY_REL_PATH = "taosha-category.json";
 	private static String[] nocludeExt;
 	private static Properties properties = null;
+	private MemcachedClient ucenterClient = null;
+	private XMemcachedClientBuilder ucenter = new XMemcachedClientBuilder(CollectionTools.newList(new InetSocketAddress("10.10.100.14", 11211)));
 
 	public void destroy(){
 	}
@@ -49,14 +56,19 @@ public class CommInfoSetFilter implements Filter {
 		HttpServletResponse res = (HttpServletResponse) response;
 		if(!filter(req)){
 			setUcenterHttpUrl(req);
-			
-			setCommInfo(req);
+			try {
+				setCommInfo(req);
+			} catch (Exception e) {
+			}
 		}
 		filterChain.doFilter(req, res);
 	}
 
 	public void init(FilterConfig arg0) throws ServletException{
 		try {
+			if(ucenterClient == null){
+				ucenterClient = ucenter.build();
+			}
 			initNocludeExt(arg0);
 			initSearchContext(arg0);
 		} catch (Exception e) {
@@ -116,11 +128,16 @@ public class CommInfoSetFilter implements Filter {
 		properties.load(inputStream);
 	}
 
-	private void setCommInfo(HttpServletRequest req) {
+	private void setCommInfo(HttpServletRequest req) throws Exception {
 		req.setAttribute("adRecordUrl", ContextUtils.getProp("adRecordUrl"));
 		String serverPath = getServerpath(req);
 		req.setAttribute("serverPath", serverPath);
-		req.setAttribute("timeVersion", ContextUtils.getVersion());
+		Object o = ucenterClient.get("v_version", 2000l);
+		if(o == null){
+			req.setAttribute("timeVersion", ContextUtils.getVersion());
+		}else{
+			req.setAttribute("timeVersion", o);
+		}
 		req.setAttribute("min", ContextUtils.getProp("min"));
 		req.setAttribute("searchApiRecommandUrl", "http://" + ContextUtils.getProp("search.domain") + ContextUtils.getProp("search.api.recommand.url"));
 	}

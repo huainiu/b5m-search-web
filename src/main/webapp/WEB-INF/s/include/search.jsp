@@ -28,21 +28,21 @@
 				<li class="cur"><a href="http://www.b5m.com" target="_blank" data-attr='1004'>首页</a></li>
 				<li><a href="http://zdm.b5m.com" target="_blank" data-attr='1004'>值得买</a></li>
 				<li><a href="http://tejia.b5m.com" target="_blank" data-attr='1004'>淘特价</a></li>
-				<li><a href="http://haiwai.b5m.com/" target="_blank" data-attr='1004'>海外馆</a> <i class="hot">热门</i></li>
-				<li><a href="http://tuan.b5m.com" target="_blank" data-attr='1004'>帮团购</a></li>
-				<li><a href="http://you.b5m.com" target="_blank" data-attr='1004'>帮5游</a></li>
-				<li><a href="http://gzx.b5m.com/" target="_blank" data-attr='1004'>购真相</a></li>
-				<li><a href="http://t.b5m.com/" target="_blank" data-attr='1004'>帮5淘</a></li>
 				<li><a href="http://tao.b5m.com/" target="_blank" data-attr='1004'>淘沙</a><i class="new">new</i></li>
+				<li><a href="http://haiwai.b5m.com/" target="_blank" data-attr='1004'>海外馆</a> <i class="hot">热门</i></li>
+				<li><a href="http://lady.b5m.com/" target="_blank" data-attr='1004'>女人街</a> <i class="new">new</i></li>
+				<li><a href="http://you.b5m.com" target="_blank" data-attr='1004'>帮5游</a></li>
+				<li><a href="http://tuan.b5m.com" target="_blank" data-attr='1004'>帮团购</a></li>
 				<li><a href="http://bjr.b5m.com/" target="_blank" data-attr='1004'>帮金融</a></li>
+				<li><a href="http://t.b5m.com/" target="_blank" data-attr='1004'>帮5淘</a></li>
 			</ul>
 			<div class="nav-more r" data-hover="nav-more-hover">
 				<span class="nav-more-txt nav-icon icon-more">更多</span>
 				<ul class="nav-more-list cf">
 					<li><a href="http://korea.b5m.com/" target="_blank" class="nav-icon icon-hgg">韩国馆</a></li>
-					<li><a href="http://www.b5m.com/forum.php" target="_blank" class="nav-icon icon-dis">讨论区</a></li>
-					<li><a href="http://piao.b5m.com" target="_blank" class="nav-icon icon-piao">帮票务</a></li>
-					<li><a href="http://daikuan.b5m.com" target="_blank" class="nav-icon icon-search">帮贷款</a></li>
+					<li><a href="http://bbs.b5m.com" target="_blank" class="nav-icon icon-dis">讨论区</a></li>
+					<li><a href="http://daikuan.b5m.com" target="_blank" class="nav-icon icon-daikuan">帮贷款</a></li>
+					<li><a href="http://gzx.b5m.com/" target="_blank" class="nav-icon icon-war" data-attr='1004'>购真相</a></li>
 				</ul>
 			</div>
 			<div class="r-nav">
