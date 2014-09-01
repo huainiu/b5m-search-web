@@ -3,6 +3,8 @@ import java.io.IOException;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.b5m.base.common.utils.StringTools;
+
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 /**
@@ -68,6 +70,10 @@ public class DataUtils {
 		if(length == 2) return "00" + str;
 		if(length == 3) return "0" + str;
 		return str;
+	}
+	
+	public static void main(String[] args) {
+		System.out.println(StringTools.MD5("http://product.suning.com/103783871.html"));
 	}
 	
 }

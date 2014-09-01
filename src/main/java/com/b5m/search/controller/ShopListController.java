@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.b5m.base.common.utils.StringTools;
+import com.b5m.search.bean.dto.FilterLinkDto;
 import com.b5m.search.bean.dto.LinkDto;
 import com.b5m.search.bean.dto.ShopListDto;
 import com.b5m.search.bean.dto.SuiSearchDto;
@@ -36,6 +37,7 @@ import com.b5m.search.utils.DataUtils;
 import com.b5m.search.utils.LinkDtoHelper;
 import com.b5m.search.utils.SearchResultHelper;
 import com.b5m.search.utils.ShoplistHelper;
+import com.b5m.service.sf1.helper.SearchHelper;
 import com.b5m.sf1api.dto.res.SearchDTO;
 
 @Controller
@@ -123,6 +125,7 @@ public class ShopListController{
 			response.setStatus(404);
 			response.sendRedirect("http://www.b5m.com/404.html");
 		}
+		request.setAttribute("metaCode", getMetaCode(channel));
 		dto.setCollectionName(_channel.getCollection());
 		dto.setServerPath(_channel.getServerPath());
 		//查询之前进行处理
@@ -375,7 +378,9 @@ public class ShopListController{
 		model.addAttribute("freeDeliveryLink", linkDtos[0].getUrl());
 		model.addAttribute("codLink", linkDtos[1].getUrl());
 		model.addAttribute("genuineLink", linkDtos[2].getUrl());
-
+        
+		model.addAttribute("includeSourceCount", countSource(shopList.getFilterList(), shopList.getSourceLinks()));
+		
 		model.addAttribute("relatedQueryList", shopList.getRelatedQueryList());
 		model.addAttribute("priceTrendDocIds", shopList.getPriceTrendDocIds());
 		model.addAttribute("firstPageUrl", shopList.getFirstPageUrl());
@@ -384,6 +389,25 @@ public class ShopListController{
 			model.addAttribute("cates", cates);
 			model.addAttribute("cateLength", cates.length);
 		}
+	}
+	
+	public static int countSource(List<FilterLinkDto> filters, List<LinkDto> sources) {
+		// 先判断filters中是否有商家，如果有，则返回filter中的商家数量
+		int count = getSourceFilterCount(filters);
+		if (count > 0)
+			return count;
+		// 如果没有，则直接返回sources的数量
+		return sources.size();
+	}
+	
+	protected static int getSourceFilterCount(List<FilterLinkDto> filters) {
+		int count = 0;
+		for (FilterLinkDto filter : filters) {
+			if (filter.getFilterType().equals("商家")) {
+				count++;
+			}
+		}
+		return count;
 	}
 	
 	public String resultTo(String channel, ResultType type){
@@ -396,5 +420,27 @@ public class ShopListController{
 	@ResponseBody
 	public String encode(String name, HttpServletRequest request) throws UnsupportedEncodingException{
 		return URLDecoder.decode(name.replace("|","%"), "GBK");
+	}
+	
+	private String getMetaCode(String channel){
+		if("haiwai".equals(channel)){
+			return "1005";
+		}
+		if("s".equals(channel)){
+			return "1016";
+		}
+		if("korea".equals(channel)){
+			return "10051";
+		}
+		if("usa".equals(channel)){
+			return "10052";
+		}
+		if("japan".equals(channel)){
+			return "10053";
+		}
+		if("taosha".equals(channel)){
+			return "1018";
+		}
+		return "";
 	}
 }

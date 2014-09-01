@@ -55,3 +55,32 @@ $(function() {
 	$('.J_autofill').autoFill('', '${autofillName}');
 });
 </script>
+<!--将代码添加到页面底部，包含在body里面,添加成功后的效果参照值得买和帮钻落地页。
+代码如下
+IM聊天工具-->
+<script type="text/javascript">
+var LHCChatOptions = {};
+LHCChatOptions.opt = {widget_height:340,widget_width:300,popup_height:520,popup_width:500};
+(function() {
+         
+var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+var refferer = (document.referrer) ? encodeURIComponent(document.referrer.substr(document.referrer.indexOf('://')+1)) : '';
+var location  = (document.location) ? encodeURIComponent(window.location.href.substring(window.location.protocol.length)) : '';
+po.src = '//chat.b5m.com/index.php/chn/chat/getstatus/(click)/internal/(position)/bottom_right/(ma)/br/(top)/350/(units)/pixels/(leaveamessage)/true?r='+refferer+'&l='+location;
+
+var s = document.getElementsByTagName('script')[0]; 
+
+s.parentNode.insertBefore(po, s);
+})();
+</script>
+<script type="text/javascript">
+        document.domain = 'b5m.com';
+        function setName(){
+                if (b5m.info.isLogin) {
+                        $('#lhc_iframe').contents().find('#b5musername').val(decodeURI(Cookies.get('showname')));
+                } else {
+                        $('#lhc_iframe').contents().find('#b5musername').val('帮5买用户');
+                }
+        }
+</script>
+<!--IM聊天工具end-->

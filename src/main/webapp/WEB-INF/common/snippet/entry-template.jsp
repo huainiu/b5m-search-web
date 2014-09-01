@@ -45,7 +45,7 @@
 					-->
                 </div>
                 <div class="prod-details-txt">
-                    <h3><a href="{{showUrl DocId SubDocsCount}}" class="prod-details-title" target="_blank" title="{{Title}}">{{Title}}</a></h3>
+                    <h3><a href="{{showUrl DocId SubDocsCount}}" data-attr="100801" class="prod-details-title" target="_blank" title="{{Title}}">{{Title}}</a></h3>
 					<div class="loading-tip">
 						<img alt="" src="http://y.b5mcdn.com/images/search/5-121204194026.gif">
 						<br>
@@ -71,7 +71,7 @@
 					<div class="prod-b5m-price" style="display:none">
 						<div class="b5m-price">
 							<div class="b5m-price-low">
-								<a class="bzdh r" href="http://s.b5m.com/exchange/item.htm?docId={{daigouSource.DOCID}}&c={{col}}" target="_blank">帮钻兑换</a>
+								<a class="bzdh r" href="http://s.b5m.com/exchange/item.htm?docId={{daigouSource.DOCID}}&c={{col}}" target="_blank" data-attr="102001">帮钻兑换</a>
 								帮我买价：<span><i>¥</i><span class="total-product-price" data="{{daigouSource.Price}}">{{daigouSource.Price}}<span></span></span>
 							</div>
 							<div class="avg-price">
@@ -87,8 +87,8 @@
 						</div>
 					</div>
 					<div class="prod-btns" style="display:none">
-						<a id="J_count_down" class="btn btn-b5m-buy btn-red-two" href="javascript:void(0)"><i></i>帮我买</a>
-						<a class="btn btn-shop-cart btn-orange" href="javascript:void(0)"><i></i>加入购物车</a>
+						<a id="J_count_down" class="btn btn-b5m-buy btn-red-two" href="javascript:void(0)" data-attr="100803"><i data-attr="100803"></i>帮我买</a>
+						<a class="btn btn-shop-cart btn-orange" href="javascript:void(0)" data-attr="100809"><i data-attr="100809"></i>加入购物车</a>
 						<span class="add-cart-success" style="display:none"><a class="go-to-cart" href="http://cart.b5m.com/" target="_blank">去购物车结算</a><a class="go-shoping" href="">继续购物</a><i class="cart-close"></i></span>
 						<a href="javascript:;" class="c2wa">
 							<span class="s-l">

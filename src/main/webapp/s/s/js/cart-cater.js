@@ -249,12 +249,43 @@ CartCenter.prototype.clickBtn = function(){
 		});
 	});
 	$(".btn-red-two").click(function(){
+		var _thisClick = $(this);
 		if(!_this.haveSelGuige()) return false;
-		_this.addCart(function(json){});
+		_this.addCart(function(json){
+			if(json.code != 1){
+				alert(json.msg);
+			}else{
+				_thisClick.attr("href", json.val);
+			}
+		});
 		try{b5m.ui.setProductNum();}catch(e){}
 		return true;
 	});
 };
+//CartCenter.prototype.clickBtn = function(){
+//	var _this = this;
+//	$(".btn-orange").click(function(){
+//		if(!_this.haveSelGuige()) return;
+//		_this.addCart(function(json){
+//			try{b5m.ui.setProductNum();}catch(e){}
+//			$(".add-cart-success").show();
+//		});
+//	});
+//	$(".btn-red-two").click(function(){
+//		if(!_this.haveSelGuige()) return false;
+//		_this.addCart(function(json){
+//			if(json.code != 1){
+//				alert(json.msg);
+//			}else{
+//				$(document.body).append('<form action="'+json.val+'" class="rdurl" target="_blank"></form>');
+//				$('.rdurl').submit(); 
+//			}
+//			return false;
+//		},1);
+//		try{b5m.ui.setProductNum();}catch(e){}
+//		return true;
+//	});
+//};
 var Ajax = {};
 Ajax.post = function(url, data, callback){
 	$.ajax({
